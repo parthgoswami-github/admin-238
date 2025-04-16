@@ -1,0 +1,19 @@
+Let’s delve into what happens **after a writer commits** in Apache Iceberg. This is a crucial aspect of understanding how Iceberg ensures data consistency and accessibility.
+
+When a **writer** performs a commit, it creates a **new snapshot** that includes the changes made by the write operation. Once this commit is complete, the new snapshot becomes **visible to readers**. This means that any subsequent queries will now access the data from this new snapshot, ensuring that readers always see the most up-to-date and consistent state of the table.
+
+Here’s a breakdown of the process:
+- **Writer Commit**: The writer makes changes to the data and commits these changes, creating a new snapshot (e.g., **Snapshot 2**).
+- **Reader Access**: After the commit, readers can access the new snapshot (**Snapshot 2**), which includes the latest changes.
+
+The snapshots (**Snapshot 0**, **Snapshot 1**, **Snapshot 2**) represent different states of the table over time. Each snapshot points to the relevant **data files** that make up the table at that point in time. This allows Iceberg to maintain a clear history of changes and provide features like **time travel**, where you can query the table as it existed at a previous snapshot.
+
+To summarize:
+- **After a writer commit**, the new snapshot becomes available to readers.
+- **Readers** access the most recent snapshot to ensure they see the latest data.
+- **Snapshots** provide a historical record of the table’s state, enabling consistent and reliable data access.
+
+
+
+??? Companies with core devs: 400-500 million ??? Under 1st bullet?
+

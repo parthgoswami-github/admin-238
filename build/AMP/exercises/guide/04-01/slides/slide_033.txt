@@ -1,0 +1,40 @@
+"Let’s explore the **time travel** feature in Apache Iceberg in more detail. This feature allows you to query data as it existed at a specific point in time or under a specific snapshot, branch, or tag. This is incredibly useful for debugging, auditing, and historical analysis.
+
+First, let’s look at **time travel to a specific timestamp**. You can query data as it existed at a particular point in time using a SQL query. For example:
+
+```sql
+SELECT * FROM hive_cat.db.table1 TIMESTAMP AS OF '2023-03-21 16:01:36.546';
+```
+
+This query will return the state of the table as it was at the specified timestamp. This is particularly useful for analyzing data at a specific moment in the past.
+
+Next, let’s discuss **time travel to a specific snapshot ID**. You can also query data based on a snapshot ID. Here’s an example:
+
+```sql
+SELECT * FROM hive_cat.db.table1 VERSION AS OF 10963874102873;
+```
+
+This query will return the state of the table as it existed at the specified snapshot ID. This is useful for precise historical analysis or recovering from errors.
+
+Iceberg also supports **tags and branches**, which are useful for managing different versions of your data. You can retrieve a list of tags and branches using the following query:
+
+```sql
+select * from local.nyc.taxis_COW.refs;
+```
+
+This query will return a list of all tags and branches associated with the table. Tags and branches allow you to manage and query different versions of your data more effectively.
+
+Finally, you can perform **time travel to a specific branch or tag**. Here’s an example:
+
+```sql
+select count(*) from local.nyc.taxis_COW VERSION AS OF 'mar_brl';
+```
+
+This query will return the count of rows in the table as it exists in the specified branch or tag. This is useful for comparing different versions of your data or analyzing specific branches.
+
+To summarize:
+- **Time Travel to Timestamp**: Query data as it existed at a specific point in time.
+- **Time Travel to Snapshot ID**: Query data as it existed at a specific snapshot ID.
+- **List Tags and Branches**: Retrieve a list of all tags and branches associated with a table.
+- **Time Travel to Branch or Tag**: Query data as it exists in a specific branch or tag.
+

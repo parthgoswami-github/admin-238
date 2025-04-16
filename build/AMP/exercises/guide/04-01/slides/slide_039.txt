@@ -1,0 +1,45 @@
+Let’s continue our discussion on Hive partitions, focusing on how to work with partitioned tables and write efficient queries. This is crucial for managing large datasets effectively."
+
+---
+
+**Key Points to Highlight:**
+
+1. **Creating a Partitioned Table:**
+   - "Here’s an example of how to insert data into a partitioned Hive table. Notice that we’re using the `PARTITION` clause to specify the partition column, which in this case is `event_date`."
+   - "The `SELECT` statement extracts the necessary columns from the source table, and the `format_time` function is used to format the `event_time` into the desired partition format (`YYYY-MM-dd`). This ensures the data is correctly partitioned by date."
+
+   ```sql
+   INSERT INTO logs PARTITION (event_date)
+   SELECT level, message, event_time, format_time(event_time, 'YYYY-MM-dd')
+   FROM unstructured_log_source
+   ```
+
+2. **Querying a Partitioned Table:**
+   - "When querying a partitioned table, it’s essential to include a filter on the partition column (`event_date`) in addition to any other filters you might have. This is because Hive uses partitions to optimize query performance by reducing the amount of data scanned."
+   - "For example, if you’re searching for logs within a specific time range, you should also filter by the partition column to ensure the query is efficient."
+
+   ```sql
+   SELECT level, count(1) as count
+   FROM logs
+   WHERE event_time BETWEEN '2018-12-01 10:00:00' AND '2018-12-01 12:00:00'
+   AND event_date = '2018-12-01'
+   ```
+
+---
+
+**Common Mistakes to Avoid:**
+- "One common mistake is forgetting to include the partition column in the `WHERE` clause. Without it, Hive might end up scanning all partitions, leading to slower query performance."
+- "Another mistake is not formatting the partition values correctly during insertion. This can lead to data being placed in the wrong partition, making it harder to retrieve later."
+
+---
+
+**Best Practices:**
+- "Always include the partition column in your `WHERE` clause when querying partitioned tables."
+- "Ensure that partition values are correctly formatted during data insertion to maintain data integrity."
+- "Use functions like `format_time` to standardize partition values, especially when dealing with timestamps."
+
+---
+
+**Closing:**
+"By following these practices, you’ll be able to work more efficiently with partitioned tables in Hive. Remember, the key is to leverage partitions to reduce the amount of data scanned and improve query performance
+

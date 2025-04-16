@@ -1,0 +1,16 @@
+The tool allows data scientists to experiment faster.
+Take advantage of all the innovation in the open source communities with R, Python and Scala; and all the libraries and frameworks 
+Using Docker and Kubernetes they have their own, self-service, isolated environments which ease the burden of dependency management and resource utilization.
+The combination of the tool and the platform enables data science at scale with powerful, on-demand access to compute resources (both CPUs and GPUs) and direct access to the secure, governed data rather than taking snap-shots of data and moving them to a laptop or to the cloud or some other platform.
+Collaboration is a first-class design concept.  The Cloudera Data Science Workbench was designed to allow teams of data scientists and data engineers and operators to work on projects and share reproducible research.
+
+In addition to driving collaborative efficiency in exploring, training and optimizing models the platform enables easy deployment of models with confidence
+Models can be deployed directly from development with no recoding.
+In addition to batch scoring CDSW allows push-button deployment for on-line scoring as a REST end-point. 
+Perhaps most importantly, the models are deployed as immutable, trackable objects with version controls and history to enable reproducible machine learning in regulated environments.
+
+Meanwhile, the IT and data management teams can reduce risk and cost.
+By providing a single, unified platform we can reduce cost and complexity and break down silos by bringing data management and data science together.
+The tools that data scientists use either reinforce good data management or they don’t.  By avoiding the need to make copies of data and move them all over the network CDSW allows you to leverage all of the good data management, governance and security practices that your IT team has built. 
+Lastly, the IT team doesn’t have to choose between on-prem or cloud or limit choices based on specific cloud providers.  The data science team has the exact same experience on-prem, private cloud or any public cloud.  
+

@@ -1,0 +1,7 @@
+Good news - we have everything our customers need to address these People, Process and Technology related barriers to building and deploying ML capabilities - consistently, repeatedly, at scale - like an AI Factory:
+
+With our platform - CDP - industry’s first enterprise data cloud -  to build, train, deploy and now, operationalize (with our upcoming CML - ML Operations suite) machine learning applications at scale
+With our comprehensive data science tools to speed and ease the end to end machine learning workflow for data science teams
+And last but not least, for those People and Process hurdles, our expert guidance &  services from Fast Forward Labs & Cloudera Professional Services - to be a time to value accelerator for our customers- speeding their journey to business adoption
+
+

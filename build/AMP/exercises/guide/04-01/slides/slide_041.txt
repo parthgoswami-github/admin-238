@@ -1,0 +1,40 @@
+"Let’s explore one of Iceberg’s most powerful features: hidden partitions. This feature simplifies query writing and optimization, making it easier to work with large datasets without worrying about the underlying partition layout."
+
+---
+
+**Key Points to Highlight:**
+
+1. **Hidden Partitioning:**
+   - "Iceberg uses hidden partitioning, which means you don’t need to write queries tailored to a specific partition layout for them to be fast. Iceberg handles the optimization for you."
+   - "When you write a query, Iceberg automatically prunes out files that don’t contain matching data. This means you can focus on selecting the data you need without worrying about how it’s partitioned."
+
+2. **Example Query:**
+   - "Consider this example query, which selects log levels and counts entries within a specific time range. In Hive, you would need to include a filter on the partition column (`event_date`) to ensure efficient query execution. However, in Iceberg, this additional filter is not required for partition pruning."
+
+   ```sql
+   SELECT level, count(1) as count
+   FROM logs
+   WHERE event_time BETWEEN '2018-12-01 10:00:00' AND '2018-12-01 12:00:00'
+   AND event_date = '2018-12-01'
+   ```
+
+   - "In Iceberg, the `event_date` filter is not necessary for partition pruning because Iceberg automatically prunes out irrelevant files based on the `event_time` filter. This makes query writing more straightforward and less error-prone."
+
+---
+
+**Common Mistakes to Avoid:**
+- "A common mistake is assuming that you need to include partition filters in your queries for them to be efficient. With Iceberg’s hidden partitioning, this is not the case, but it’s still important to understand how Iceberg manages partitions internally."
+- "Another mistake is not leveraging Iceberg’s automatic pruning capabilities. By writing clear and concise queries, you can take full advantage of Iceberg’s optimization features."
+
+---
+
+**Best Practices:**
+- "Write queries that focus on selecting the data you need, without worrying about the underlying partition layout. Iceberg will handle the optimization for you."
+- "Understand how Iceberg’s hidden partitioning works, so you can write more efficient queries and avoid unnecessary filters."
+- "Regularly review your queries to ensure they are taking full advantage of Iceberg’s automatic pruning capabilities."
+
+---
+
+**Closing:**
+"Iceberg’s hidden partitioning feature simplifies query writing and optimization, making it easier to work with large datasets. By understanding how Iceberg automatically prunes irrelevant files, you can write more efficient and maintainable queries.
+

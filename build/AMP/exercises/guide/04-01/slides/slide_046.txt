@@ -1,0 +1,52 @@
+"Today, we’ll delve into the structure and importance of table metadata in Iceberg. Understanding how Iceberg manages metadata is crucial for efficient data management and query optimization."
+
+---
+
+**Key Points to Highlight:**
+
+1. **Creating a Table in Iceberg:**
+   - "To create a table in Iceberg, use the `CREATE TABLE` statement. In this example, we’re creating a table named `cust` with columns for `order_id`, `customer_id`, `order_amount`, `order_ts`, and `order_hr`."
+   - "The table is partitioned by `order_hr`, which helps improve query performance by organizing data into manageable chunks."
+
+   ```sql
+   CREATE TABLE cust (
+     order_id BIGINT,
+     customer_id BIGINT,
+     order_amount DECIMAL(10, 2),
+     order_ts TIMESTAMP,
+     order_hr int
+   )
+   USING iceberg
+   PARTITIONED BY (order_hr);
+   ```
+
+2. **Iceberg Catalog:**
+   - "The Iceberg catalog keeps track of the current metadata pointer for the table. In this case, the pointer is `pr.cust`."
+   - "The metadata file, `v1.metadata.json`, contains all the necessary information about the table’s schema, partitions, and data files."
+
+3. **Metadata File Structure:**
+   - "The metadata file is stored in the `metadata/` directory within the table’s directory structure. For example, `cust/metadata/v1.metadata.json`."
+   - "The `data/` directory contains the actual data files, organized according to the partitioning scheme."
+
+4. **Metadata File Snapshot:**
+   - "Iceberg uses metadata file snapshots to manage changes to the table over time. Each snapshot represents a version of the table’s metadata and data files."
+   - "This allows Iceberg to provide features like time travel and schema evolution, enabling you to query historical data or modify the table schema without breaking existing queries."
+
+---
+
+**Common Mistakes to Avoid:**
+- "A common mistake is not understanding the role of metadata files, which can lead to confusion when managing table changes or troubleshooting issues."
+- "Another mistake is not leveraging Iceberg’s snapshot capabilities, which can provide powerful features like time travel and schema evolution."
+
+---
+
+**Best Practices:**
+- "Regularly review and understand the metadata files to ensure you’re aware of the table’s structure and changes."
+- "Use Iceberg’s snapshot capabilities to manage table versions and enable features like time travel and schema evolution."
+- "Organize your data files according to the partitioning scheme to improve query performance and manageability."
+
+---
+
+**Closing:**
+"Understanding how Iceberg manages table metadata is essential for efficient data management and query optimization. By leveraging Iceberg’s metadata and snapshot capabilities, you can ensure your data remains accessible and performant over time.
+

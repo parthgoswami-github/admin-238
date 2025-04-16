@@ -1,0 +1,108 @@
+site_name: 'ADMIN-238: Just Enough Kubernetes'
+site_author: Cloudera Education
+copyright: Cloudera Inc. 2025
+theme:
+    name: material
+    logo: assets/images/logo-cloudera-white.svg
+    palette:
+    - scheme: default
+      primary: #FFFFFF
+      accent: #121212
+      toggle:
+        name: Switch to light mode
+        icon: material/weather-sunny
+    - scheme: slate
+      primary: pink
+      accent: pink
+      toggle:
+        name: Switch to dark mode
+        icon: material/weather-night
+    features:
+    - content.code.annotate
+    - content.code.copy
+
+docs_dir: '../exercises'
+site_dir: '../build/AMP/exercises'
+extra_css:
+  - stylesheets/extra.css
+use_directory_urls: false
+
+
+nav:
+    - 'Course Overview': 'README.md'
+    - 'Table of Contents': 'guide/README.md'
+    - '01 Course Introduction':
+      - '01-01 Course Introduction': 'guide/01-01/README.md'
+      - '01-02 Getting Aboard': 'guide/01-02/README.md'
+    - '02 Get Aboard':
+      - '02-01 Get Aboard': 'guide/02-01/README.md'
+      - '02-02 Accessing Environment': 'guide/02-02/README.md'
+      - '02-03 Define Workload Password': 'guide/02-03/README.md'
+      - '02-04 Verify permissions in Apache Ranger': 'guide/02-04/README.md'
+      - '02-05 Create a Flow using Flow Designer': 'guide/02-05/README.md'
+      - '02-06 Testing the flow': 'guide/02-06/README.md'
+      - '02-07 Moving the flow to the flow catalog': 'guide/02-07/README.md'
+      - '02-08 Migrating Existing Data Flows to CDF-PC': 'guide/02-08/README.md'
+      - '02-09 Managing KeyTabs': 'guide/02-09/README.md'
+      - '02-10 Working on SQL Steam Builder Project': 'guide/02-10/README.md'
+    - '03 Design Principles for Kubernetes':
+      - '03-01 Design Principles for Kubernetes': 'guide/03-01/README.md'
+      - '03-02 Accessing Environment': 'guide/03-02/README.md'
+      - '03-03 Building Your First CDE Airflow DAG': 'guide/03-03/README.md'
+      - '03-04 Beyond Airflow for Spark Jobs': 'guide/03-04/README.md'
+      - '03-05 More Airflow DAG Features': 'guide/03-05/README.md'
+    - '04 Access and Interact':
+      - '04-01 Access and Interact': 'guide/04-01/README.md'
+      - '04-02 Introdction and Access': 'guide/04-02/README.md'
+      - '04-03 CDW raw layer': 'guide/04-03/README.md'
+      - '04-04 Datalakehouse Hive and Iceberg': 'guide/04-04/README.md'
+      - '04-05 Performance Optimization & Lakehouse Maintenance': 'guide/04-05/README.md'
+      - '04-06 Data Visualization': 'guide/04-06/README.md'
+    - '05 Microservices':
+      - '05-01 Microservices': 'guide/05-01/README.md'
+      - '05-02 MLOps in Cloudera AI': 'guide/05-02/README.md'
+    - '06 Architecture for Kubernetes Resources':
+      - '06-01 Architecture for Kubernetes Resources': 'guide/06-01/README.md'
+      - '06-02 End-to-End Stock Data Processing with Cloudera': 'guide/06-02/README.md'
+    - '07 Kubernetes Manifest Files':
+      - '07-01 Kubernetes Manifest Files': 'guide/07-01/README.md'
+    - '08 Architecture for Kubernetes Cluster':
+      - '08-01 Architecture for Kubernetes Cluster': 'guide/08-01/README.md'
+    - '09 Architecture for Kubernetes Control Plane':
+      - '09-01 Architecture for Kubernetes Control Plane': 'guide/09-01/README.md'
+    - '10 Next Steps':
+      - '10-01 Next Steps': 'guide/10-01/README.md'
+    - 'Appendix-A Cloudera Support':
+      - 'A-01 Cloudera Support': 'guide/A-01/README.md'
+      - 'A-02 Bookmarking Cloudera Resources': 'guide/A-02/README.md'
+
+
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.keys
+  - admonition
+  - pymdownx.details
+  - toc:
+      toc_depth: 3
+  - sane_lists: {}
+
+
+plugins:
+  - search
+  - markdownextradata: {}
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      width: 80%
+      height: auto
+      zoomable: true
+      draggable: true
+
+extra:
+  github:
+    url: "https://github.com/sanketmote05/portfolio-website"

@@ -1,0 +1,13 @@
+"In Step 5, we’ll focus on performance optimization and table maintenance. These are critical tasks for ensuring that your data warehouse runs efficiently and remains reliable as your data grows.
+Here’s what we’ll do:
+Iceberg In-Place Partition Evolution:
+Modify partitions without rewriting the entire dataset. This is useful when your data structure changes over time.
+Iceberg Snapshots:
+Manage and roll back to previous versions of the data. Snapshots act like checkpoints, allowing you to revert to an earlier state if needed.
+Iceberg Time Travel:
+Query data as it existed at a specific point in time. This is useful for auditing or analyzing historical data.
+Materialized Views:
+Create precomputed views to speed up query performance. Materialized views store the results of a query, so you don’t have to recompute them every time.
+Why is this important?
+Optimization ensures that your queries run quickly and efficiently, even as your dataset grows. Maintenance features like snapshots and time travel give you flexibility and reliability when working with large datasets."
+

@@ -1,0 +1,7 @@
+Let’s take a closer look at the model lifecycle and how MLflow simplifies tracking and deployment using the Model Registry.
+First, in Workspace 1, the user logs metrics and models during training sessions using MLflow APIs like mlflow.log_metric or mlflow.log_model. These commands allow you to record key performance metrics and save your model in a structured format.
+Once the metrics and models are logged, users can view the results in the Experiments UI. This interface provides a detailed view of all experiment runs, making it easy to compare metrics, analyze performance, and identify the best-performing model.
+When a preferred experiment run is identified, the user can select ‘Register Model’, which adds the model version to the Model Registry. The Model Registry acts as a centralized location to manage and version models, ensuring proper tracking and reproducibility across teams and environments.
+From the Model Registry, users can continue iterating and refining the model or move toward deployment. For deployment, a user working in Workspace 2 can select a model version from the registry and deploy it via the Model REST API. This ensures seamless integration of the model into production systems.
+Key takeaway: MLflow's Model Registry not only tracks your models throughout the lifecycle but also provides a smooth pathway from experimentation to production deployment, ensuring transparency and scalability."
+

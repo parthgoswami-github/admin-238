@@ -1,0 +1,19 @@
+"Let’s discuss how **snapshots** in Apache Iceberg can be used to track **change history**. This is particularly useful when your application has been making numerous modifications to an Iceberg table, and you need to review all the operations (inserts, updates, deletes) from a specific snapshot.
+
+Imagine you have a table that has undergone many changes, and you want to scan all the operations starting from a particular snapshot. Iceberg makes this easy with its **change tracking** capabilities. You can use the `start-snapshot-id` option to specify the snapshot from which you want to start scanning changes. Here’s an example:
+
+```scala
+spark.read
+  .option("start-snapshot-id", "5428767791685681193")
+  .table("local.db.table1.changes")
+  .show()
+```
+
+This query will return all the changes (inserts, updates, deletes) that have occurred since the specified snapshot. This is incredibly useful for **Type 2 table changes**, where you need to track historical changes for auditing, compliance, or analytical purposes.
+
+To summarize:
+- **Change History**: Iceberg allows you to track all modifications (inserts, updates, deletes) from a specific snapshot.
+- **Practical Use**: This feature is particularly useful for Type 2 table changes, where maintaining a history of changes is crucial.
+
+This capability ensures that you can always review and analyze the evolution of your data, providing transparency and accountability.
+

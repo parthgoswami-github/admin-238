@@ -1,0 +1,6 @@
+Our next gen platform CDP offers just that in 3 form factors:
+
+ Different ‘flavours’ for different infrastructures, all tied together in a single, common control plane and with a single, consistent layer of security and governance across analytics, across infrastructures.
+<Point to DC, Hybrid  and Multi-public cloud on top>
+We are seeing more and more that customers don’t want to be tied to just one infrastructure.  They want to be able to use a combination of architecture for flexibility.  We can support them on this complete journey.
+

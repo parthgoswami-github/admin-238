@@ -1,0 +1,41 @@
+"Today, we’ll explore how to perform Data Manipulation Language (DML) operations in Iceberg using Spark SQL. These operations include creating tables, inserting data, and querying data."
+
+---
+
+**Key Points to Highlight:**
+
+1. **Creating a Table:**
+   - "To create a table in Iceberg, use the `CREATE TABLE` statement. In this example, we’re creating a table named `order` in the `local.db` database with columns for `order_id`, `customer_id`, `order_amount`, `order_ts`, and `order_hr`."
+   - "The table is partitioned by `order_hr`, which helps improve query performance by organizing data into manageable chunks."
+
+   ```sql
+   spark.sql("""
+   CREATE TABLE local.db.order (
+       order_id BIGINT,
+       customer_id BIGINT,
+       order_amount DECIMAL(10, 2),
+       order_ts TIMESTAMP,
+       order_hr int
+   )
+   USING iceberg
+   PARTITIONED BY (order_hr)
+   """)
+   ```
+
+2. **Inserting Data:**
+   - "You can insert data into the table using the `INSERT INTO` statement. In this example, we’re inserting three rows into the `order` table."
+   - "Each `INSERT INTO` statement specifies the values for the columns in the table. Note that the `order_ts` column is populated using a timestamp literal."
+
+   ```sql
+   spark.sql("INSERT INTO local.db.order VALUES (1, 1, 200.00, timestamp '2202-01-22', 10)")
+   spark.sql("INSERT INTO local.db.order VALUES (2, 1, 300.00, timestamp '2202-01-22', 10)")
+   spark.sql("INSERT INTO local.db.order VALUES (3, 1, 300.00, timestamp '2202-01-22', 11)")
+   ```
+
+3. **Querying Data:**
+   - "To query data from the table, use the `SELECT` statement. In this example, we’re selecting all rows from the `order` table and displaying the results."
+
+   ```sql
+   spark.sql("SELECT * FROM local.db.order").show()
+   ```
+

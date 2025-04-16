@@ -1,0 +1,49 @@
+"Let’s explore how to create an external Hive table with files stored in Ozone. This is a common scenario when working with distributed storage systems and Hive for big data processing."
+
+---
+
+**Key Points to Highlight:**
+
+1. **Creating an External Table:**
+   - "To create an external Hive table, use the `CREATE EXTERNAL TABLE` statement. This ensures that the table metadata is managed by Hive, but the actual data is stored externally, in this case, in Ozone."
+   - "In the example provided, we’re creating a table named `people2` in the `spark_catalog.db` database. The table has columns for `first_name`, `last_name`, and `dt` (date)."
+
+   ```sql
+   CREATE EXTERNAL TABLE spark_catalog.db.people2 (
+     first_name string,
+     last_name string,
+     dt date
+   )
+   USING ORC
+   PARTITIONED BY (dt)
+   LOCATION '/../ozone1/people2'
+   ```
+
+2. **Partitioning:**
+   - "The table is partitioned by the `dt` column. Partitioning helps improve query performance by reducing the amount of data scanned."
+   - "Partition pruning, which is the process of skipping irrelevant partitions during query execution, depends on specifying the partition ID in the `WHERE` clause. For example, if you query data for a specific date, Hive will only scan the relevant partition."
+
+3. **Storage Format:**
+   - "The `USING ORC` clause specifies that the data is stored in the ORC (Optimized Row Columnar) format. ORC is highly efficient for read-heavy operations and provides better compression and performance."
+
+4. **Location:**
+   - "The `LOCATION` clause specifies the path in Ozone where the data files are stored. This path should point to the directory containing the data files for the table."
+
+---
+
+**Common Mistakes to Avoid:**
+- "A common mistake is not specifying the correct location for the external table, which can lead to errors or missing data."
+- "Another mistake is forgetting to include the partition column in the `WHERE` clause, which can result in full table scans and slower query performance."
+
+---
+
+**Best Practices:**
+- "Always specify the correct location for external tables to ensure Hive can access the data."
+- "Use partitioning to improve query performance and ensure partition pruning by including partition columns in the `WHERE` clause."
+- "Choose the appropriate storage format (e.g., ORC) based on your performance and compression needs."
+
+---
+
+**Closing:**
+"Creating external tables in Hive with data stored in Ozone is a powerful way to manage large datasets. By following these best practices, you can ensure efficient data access and query performance.
+

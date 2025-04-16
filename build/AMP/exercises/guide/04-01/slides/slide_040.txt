@@ -1,0 +1,41 @@
+"Today, we’re going to explore Iceberg partitions, which offer more flexibility compared to traditional partitioning schemes like those in Hive. Iceberg allows you to update partitioning schemes in existing tables without breaking queries, which is a game-changer for managing large datasets."
+
+---
+
+**Key Points to Highlight:**
+
+1. **Dynamic Partitioning Updates:**
+   - "One of the standout features of Iceberg is that you can update the partitioning scheme of an existing table. This is possible because queries in Iceberg do not reference partition values directly. Instead, Iceberg manages the metadata, allowing for more flexibility."
+   - "For example, you can change from a monthly partitioning scheme to a daily one without needing to rewrite the entire table or disrupt existing queries."
+
+2. **Coexisting Partition Layouts:**
+   - "Iceberg allows different partitioning layouts to coexist in the same table. In the example provided, data from 2008 is partitioned by month, while data from 2009 onwards is partitioned by day. This flexibility is incredibly useful when evolving your data management strategy over time."
+
+3. **Example Query:**
+   - "Let’s look at an example query that spans both partitioning schemes. The query retrieves data from a `booking_table` where the date falls between 2008-12-14 and 2009-01-14. Iceberg handles the different partitioning schemes seamlessly, ensuring the query runs efficiently."
+
+   ```sql
+   SELECT * FROM booking_table WHERE date > '2008-12-14' AND date < '2009-01-14'
+   ```
+
+4. **Partition Specification Changes:**
+   - "The table shows how the partition specification changes over time. Data from 2008 is partitioned by month, while data from 2009 is partitioned by day. This is represented in the `Looking_table` example, where you can see the transition from monthly to daily partitions."
+
+---
+
+**Common Mistakes to Avoid:**
+- "A common mistake is assuming that changing the partitioning scheme will require significant data migration or downtime. With Iceberg, this isn’t the case, but it’s still important to plan changes carefully to avoid unexpected issues."
+- "Another mistake is not leveraging Iceberg’s ability to handle multiple partitioning schemes. This feature can be incredibly useful for managing historical data alongside new data."
+
+---
+
+**Best Practices:**
+- "Plan your partitioning strategy carefully, but know that Iceberg allows you to evolve this strategy over time without breaking existing queries."
+- "Use Iceberg’s metadata management capabilities to your advantage, ensuring that your queries remain efficient even as your data grows and changes."
+- "Regularly review and update your partitioning schemes to align with your current data access patterns and business needs."
+
+---
+
+**Closing:**
+"Iceberg’s flexible partitioning capabilities make it a powerful tool for managing large datasets. By understanding how to update and coexist different partitioning schemes, you can ensure your data remains accessible and performant over time.
+

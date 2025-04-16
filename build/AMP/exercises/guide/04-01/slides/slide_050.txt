@@ -1,0 +1,21 @@
+Iceberg-DML operations. Today, we'll be focusing on three key operations: Delete, Update, and Truncate. These operations are essential for managing and manipulating data within your Iceberg tables using Apache Spark.
+
+1. **Delete Operation**:
+   - The delete operation allows you to remove specific records from your table based on a condition.
+   - In the example provided, we're deleting a record from the `local.db.cust` table where the `id` is equal to 2.
+   - The command used is: `spark.sql("delete from local.db.cust where id=2")`.
+   - This is particularly useful when you need to clean up your data or remove outdated information.
+
+2. **Update Operation**:
+   - The update operation is used to modify existing records in your table.
+   - Here, we're updating the `name` field to 'bob' for the record where `id` is 2 in the `local.db.cust` table.
+   - The command is: `spark.sql("update local.db.cust set name = 'bob' where id=2")`.
+   - This operation is crucial when you need to correct or change data without deleting and re-inserting records.
+
+3. **Truncate Operation**:
+   - The truncate operation is used to remove all records from a table, effectively resetting it.
+   - In the example, we're truncating the `local.db.cust` table using the command: `spark.sql("Truncate table local.db.cust").show()`.
+   - This is a powerful operation and should be used with caution, as it will delete all data in the table.
+
+Remember, these operations are executed using Spark SQL, which integrates seamlessly with Iceberg tables. Always ensure you have the necessary permissions and backups before performing these operations, especially truncate, as it can lead to data loss.
+

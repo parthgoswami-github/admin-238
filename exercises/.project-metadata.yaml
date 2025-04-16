@@ -1,0 +1,37 @@
+name: Predicting with Cloudera Machine Learning
+description: Exercise Guide for Predicting with Cloudera Machine Learning
+author: Cloudera Inc.
+specification_version: 1.0
+prototype_version: 2.0
+date: "2023-07-31"
+
+runtimes:
+  - editor: Workbench
+    kernel: Python 3.9
+    edition: Standard
+    addons: ['Spark 3.2.3 - CDE 1.19.2 - HOTFIX-2']
+
+tasks:
+  - type: run_session
+    name: Install Dependencies
+    short_summary: Install dependencies
+    script: cml/install_dependencies.py
+    kernel: python3
+    cpu: 1
+    memory: 2
+
+  - type: run_session
+    name: Install Data
+    short_summary: Install data
+    script: cml/setup-data.py
+    kernel: python3
+    cpu: 1
+    memory: 2
+
+  - type: start_application
+    name: Exercise Guide App
+    subdomain: ml-on-cdp
+    script: cml/launch_app.py
+    short_summary: Start exercise guide application
+    environment_variables:
+      TASK_TYPE: START_APPLICATION

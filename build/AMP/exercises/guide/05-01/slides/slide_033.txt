@@ -1,0 +1,16 @@
+Centralized Monitoring Solution
+"Managing multiple models across different environments can be complex. That’s where a centralized monitoring solution becomes essential."
+CML offers a ‘single pane of glass’ to monitor all deployed models in one place.
+It also supports alerting and external system integration, enabling proactive issue detection and resolution.
+Tracking Technical Metrics
+"Beyond just deploying models, we need to track key technical metrics to ensure operational reliability."
+Uptime: Ensuring that models remain available and accessible to applications.
+Status: Monitoring whether a model is running correctly or facing issues.
+SLA Adherence: Tracking service-level agreements, ensuring models meet performance and response time requirements.
+Tracking Mathematical Metrics
+"In addition to technical health, we must also track how well the models are performing in real-world conditions."
+Prediction Distribution: Monitoring the output distribution of models over time to detect anomalies.
+Drift Detection: Identifying when data distributions shift, which could indicate that the model needs retraining.
+Input Distribution: Tracking input data characteristics to ensure consistency and prevent unexpected changes.
+Since different models have different requirements, these monitoring metrics can be customized accordingly.
+

@@ -1,0 +1,73 @@
+site_name: 'DENG-259: Building Solutions with Cloudera Data Services'
+site_author: Cloudera Education
+copyright: Cloudera Inc. 2025
+theme:
+    name: material
+    logo: assets/images/logo-cloudera-white.svg
+    palette:
+    - scheme: default
+      primary: #FFFFFF
+      accent: #121212
+      toggle:
+        name: Switch to light mode
+        icon: material/weather-sunny
+    - scheme: slate
+      primary: pink
+      accent: pink
+      toggle:
+        name: Switch to dark mode
+        icon: material/weather-night
+    features:
+    - content.code.annotate
+
+docs_dir: '../student'
+site_dir: '../build/lecture/'
+extra_css:
+  - stylesheets/extra.css
+use_directory_urls: false
+
+
+nav:
+    - 'Table of Contents': 'guide/README.md'
+    - '01 Get Aboard':
+      - '01-01 Get Aboard': 'guide/01-01/README.md'
+    - '02 Using Cloudera Data Flow':
+      - '02-01 Using Cloudera Data Flow': 'guide/02-01/README.md'
+    - '03 Using Cloudera Data Engineering - Airflow':
+      - '03-01 Using Cloudera Data Engineering - Airflow': 'guide/03-01/README.md'
+    - '04 Using Cloudera Data Warehouse':
+      - '04-01 Using Cloudera Data Warehouse': 'guide/04-01/README.md'
+    - '05 Using Cloudera AI':
+      - '05-01 Using Cloudera AI': 'guide/05-01/README.md'
+    - '06 Integrating Cloudera Data Services':
+      - '06-01 Use Case: Stock Data Analysis Using Cloudera': 'guide/06-01/README.md'
+    - '07 Course Summary':
+      - '07-01 Course Summary': 'guide/07-01/README.md'
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.keys
+  - admonition
+  - pymdownx.details
+  - toc:
+      toc_depth: 1
+  - sane_lists: {}
+
+
+plugins:
+  - search
+  - markdownextradata: {}
+  - with-pdf:
+      toc_level: 1
+      ordered_chapter_level: 0
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      width: 80%
+      height: auto
+      zoomable: true
+      draggable: true

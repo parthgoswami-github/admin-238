@@ -1,0 +1,11 @@
+So why this wall to production?  Why so hard? 
+
+There is a People and process aspect.  
+
+The machine learning capability development lifecycle is not like traditional SW development.  You can’t use Waterfall method.  You can’t really use traditional Agile.
+
+End-to-end ML requires collaboration across Business Stakeholders, IT, and Data Science teams - it is an iterative, cyclical team sport.
+
+There is even emergence of a new job title - the ML Engineer or ML Ops Engineer - and they can sit in a Data Science Team, or within IT - and it’s not even completely clear exactly what they do yet.
+
+This is a complex life cycle and it’s still a bit of wild west...

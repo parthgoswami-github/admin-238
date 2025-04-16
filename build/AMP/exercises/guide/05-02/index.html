@@ -1,0 +1,2531 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Cloudera Education">
+      
+      
+      
+        <link rel="prev" href="../05-01/index.html">
+      
+      
+        <link rel="next" href="../06-01/index.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>05-02 MLOps in Cloudera AI - DENG-259: Building Solutions with Cloudera Data Services</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mlops-in-cloudera-ai-banking-usecase" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="DENG-259: Building Solutions with Cloudera Data Services" class="md-header__button md-logo" aria-label="DENG-259: Building Solutions with Cloudera Data Services" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-cloudera-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DENG-259: Building Solutions with Cloudera Data Services
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              05-02 MLOps in Cloudera AI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="DENG-259: Building Solutions with Cloudera Data Services" class="md-nav__button md-logo" aria-label="DENG-259: Building Solutions with Cloudera Data Services" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-cloudera-white.svg" alt="logo">
+
+    </a>
+    DENG-259: Building Solutions with Cloudera Data Services
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Course Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table of Contents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    01 Get Aboard
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            01 Get Aboard
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-01 Get Aboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-02 Getting Aboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    02 Using Cloudera Data Flow
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            02 Using Cloudera Data Flow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-01 Using Cloudera Data Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-02 Accessing Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-03 Define Workload Password
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-04 Verify permissions in Apache Ranger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-05 Create a Flow using Flow Designer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-06/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-06 Testing the flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-07/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-07 Moving the flow to the flow catalog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-08/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-08 Migrating Existing Data Flows to CDF-PC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-09/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-09 Managing KeyTabs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-10/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-10 Working on SQL Steam Builder Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    03 Using Cloudera Data Engineering - Airflow
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            03 Using Cloudera Data Engineering - Airflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-01 Using Cloudera Data Engineering - Airflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-02 Accessing Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-03 Building Your First CDE Airflow DAG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-04 Beyond Airflow for Spark Jobs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-05 More Airflow DAG Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    04 Using Cloudera Data Warehouse
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            04 Using Cloudera Data Warehouse
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-01 Using Cloudera Data Warehouse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-02 Introdction and Access
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-03 CDW raw layer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-04 Datalakehouse Hive and Iceberg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-05 Performance Optimization & Lakehouse Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-06/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-06 Data Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    05 Using Cloudera AI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            05 Using Cloudera AI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-01 Using Cloudera AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    05-02 MLOps in Cloudera AI
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-02 MLOps in Cloudera AI
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mlops-machine-learning-operations-for-a-banking-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. MLOps (Machine Learning Operations) for a banking use case.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-key-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Key Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-you-will-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What You Will Learn
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-on-cloudera-console-select-cloudera-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. On Cloudera Console select Cloudera AI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-click-on-workbench-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Click on workbench name.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-click-on-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Click on New Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-enter-the-following-parameters-in-the-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Enter the following parameters in the form:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-runtimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Runtimes:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-go-to-project-settings-data-conections-copy-the-connection-name-to-your-notepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Go to Project settings -&gt; Data Conections -&gt; Copy the Connection Name to your notepad
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-create-a-cml-session-and-install-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Create a CML Session and Install Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-launch-a-cml-session-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Launch a CML Session with:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-in-the-prompt-on-the-right-side-enter-the-following-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. In the prompt on the right side enter the following command:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-once-all-packages-have-been-installed-proceed-to-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Once all packages have been installed, proceed to next step.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-open-00_datagenpy-in-your-cml-session-and-update-the-connection-name-on-line-no-160" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Open 00_datagen.py in your CML Session and update the Connection Name on Line no 160.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#141-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-open-01_train_xgboostpy-in-your-cml-session-and-update-the-connection_name-variables-at-lines-55-save-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Open 01_train_xgboost.py in your CML Session and update the CONNECTION_NAME variables at lines 55 &amp; Save it.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#151-click-on-project-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1 Click on project tab.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#152-click-on-experiment-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2 Click on Experiment tab.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#153-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#154-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.4 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-click-on-sessions-tab-and-select-your-running-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Click on Sessions tab and select your running session.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-return-to-02_api_deploymentpy-and-press-the-play-button-in-order-to-run-the-whole-script-you-will-be-able-to-observe-code-output-on-the-right-side-of-your-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Return to 02_api_deployment.py and press the play button in order to run the whole script. You will be able to observe code output on the right side of your screen.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#171-go-to-model-deployment-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1 Go to Model Deployment tab
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#172-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#173-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-click-on-sessions-tab-and-select-your-running-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Click on Sessions tab and select your running session.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-mlops-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. MLOps Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#191-open-03_newbatchpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.1 Open 03_newbatch.py
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#192-open-04_train_xgboostpy-update-the-connection_name-variables-at-line-no-55-save-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.2 Open 04_train_xgboost.py &amp; update the CONNECTION_NAME variables at line no 55 &amp; Save it.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#193-open-05_api_redeploymentpy-update-the-connection_name-variables-at-line-no-210-save-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.3 Open 05_api_redeployment.py &amp; update the CONNECTION_NAME variables at line no 210 &amp; Save it.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#194-create-a-cml-job-for-each-do-not-run-the-jobs-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.4 Create a CML Job for each. Do not run the jobs yet.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#195-create-job-new-batch-with-the-following-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.5 Create Job "New Batch" with the following configurations:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#196-click-on-new-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.6 Click on New Job
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#197-create-job-new-batch-with-the-following-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.7 Create Job "New Batch" with the following configurations:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#198-click-on-new-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.8 Click on New Job
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#199-create-job-new-batch-with-the-following-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.9 Create Job "New Batch" with the following configurations:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1910-once-you-created-all-three-jobs-manually-trigger-the-new-batch-job-monitor-execution-in-the-job-history-tab-and-observe-that-once-it-is-complete-the-next-job-in-the-mlops-pipeline-retrain-xgboost-is-triggered-and-finally-the-last-job-api-redeployment-is-executed" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.10 Once you created all three jobs, manually trigger the New Batch job. Monitor execution in the Job History tab, and observe that once it is complete the next job in the MLOps pipeline, Retrain XGBoost, is triggered, and finally the last job, API Redeployment, is executed.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1911-once-all-there-job-run-go-to-model-deployment-tab-you-will-see-your-model-is-building-deploying-and-finally-deployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.11 Once all there job run, go to model deployment tab. you will see your model is building, deploying and finally deployed.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1912-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.12 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1913-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.13 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-model-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Model Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#201-go-to-the-sessions-tab-select-your-running-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.1 Go to the sessions tab &amp; select your running session
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#202-open-06_model_simulationpy-and-update-connection_name-variable-at-line-no-62" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.2 Open 06_model_simulation.py and update CONNECTION_NAME variable at line no 62.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#203-click-on-1h-as-shown-in-the-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.3 Click on 1h as shown in the image.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#204" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.4
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#205-open-07_model_monitoringpy-in-your-cml-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.5 Open 07_model_monitoring.py in your CML Session
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#206-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.6 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#207-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.7 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-end-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. END of Exercise.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    06 Integrating Cloudera Data Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            06 Integrating Cloudera Data Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06-01 Use Case: Stock Data Analysis Using Cloudera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06-02 End-to-End Stock Data Processing with Cloudera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    07 Course Summary
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            07 Course Summary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    07-01 Course Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-mlops-machine-learning-operations-for-a-banking-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. MLOps (Machine Learning Operations) for a banking use case.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-key-objectives" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Key Objectives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-what-you-will-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. What You Will Learn
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-on-cloudera-console-select-cloudera-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. On Cloudera Console select Cloudera AI
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-click-on-workbench-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Click on workbench name.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-click-on-new-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Click on New Project
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-enter-the-following-parameters-in-the-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Enter the following parameters in the form:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-runtimes" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Runtimes:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-go-to-project-settings-data-conections-copy-the-connection-name-to-your-notepad" class="md-nav__link">
+    <span class="md-ellipsis">
+      9. Go to Project settings -&gt; Data Conections -&gt; Copy the Connection Name to your notepad
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-create-a-cml-session-and-install-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      10. Create a CML Session and Install Requirements
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11-launch-a-cml-session-with" class="md-nav__link">
+    <span class="md-ellipsis">
+      11. Launch a CML Session with:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12-in-the-prompt-on-the-right-side-enter-the-following-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      12. In the prompt on the right side enter the following command:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#13-once-all-packages-have-been-installed-proceed-to-next-step" class="md-nav__link">
+    <span class="md-ellipsis">
+      13. Once all packages have been installed, proceed to next step.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#14-open-00_datagenpy-in-your-cml-session-and-update-the-connection-name-on-line-no-160" class="md-nav__link">
+    <span class="md-ellipsis">
+      14. Open 00_datagen.py in your CML Session and update the Connection Name on Line no 160.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#141-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.1 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      14.2 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#15-open-01_train_xgboostpy-in-your-cml-session-and-update-the-connection_name-variables-at-lines-55-save-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      15. Open 01_train_xgboost.py in your CML Session and update the CONNECTION_NAME variables at lines 55 &amp; Save it.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#151-click-on-project-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.1 Click on project tab.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#152-click-on-experiment-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.2 Click on Experiment tab.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#153-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.3 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#154-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      15.4 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#16-click-on-sessions-tab-and-select-your-running-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      16. Click on Sessions tab and select your running session.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#17-return-to-02_api_deploymentpy-and-press-the-play-button-in-order-to-run-the-whole-script-you-will-be-able-to-observe-code-output-on-the-right-side-of-your-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      17. Return to 02_api_deployment.py and press the play button in order to run the whole script. You will be able to observe code output on the right side of your screen.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#171-go-to-model-deployment-tab" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.1 Go to Model Deployment tab
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#172-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.2 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#173-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      17.3 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#18-click-on-sessions-tab-and-select-your-running-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      18. Click on Sessions tab and select your running session.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#19-mlops-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      19. MLOps Pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#191-open-03_newbatchpy" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.1 Open 03_newbatch.py
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#192-open-04_train_xgboostpy-update-the-connection_name-variables-at-line-no-55-save-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.2 Open 04_train_xgboost.py &amp; update the CONNECTION_NAME variables at line no 55 &amp; Save it.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#193-open-05_api_redeploymentpy-update-the-connection_name-variables-at-line-no-210-save-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.3 Open 05_api_redeployment.py &amp; update the CONNECTION_NAME variables at line no 210 &amp; Save it.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#194-create-a-cml-job-for-each-do-not-run-the-jobs-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.4 Create a CML Job for each. Do not run the jobs yet.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#195-create-job-new-batch-with-the-following-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.5 Create Job "New Batch" with the following configurations:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#196-click-on-new-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.6 Click on New Job
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#197-create-job-new-batch-with-the-following-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.7 Create Job "New Batch" with the following configurations:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#198-click-on-new-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.8 Click on New Job
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#199-create-job-new-batch-with-the-following-configurations" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.9 Create Job "New Batch" with the following configurations:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1910-once-you-created-all-three-jobs-manually-trigger-the-new-batch-job-monitor-execution-in-the-job-history-tab-and-observe-that-once-it-is-complete-the-next-job-in-the-mlops-pipeline-retrain-xgboost-is-triggered-and-finally-the-last-job-api-redeployment-is-executed" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.10 Once you created all three jobs, manually trigger the New Batch job. Monitor execution in the Job History tab, and observe that once it is complete the next job in the MLOps pipeline, Retrain XGBoost, is triggered, and finally the last job, API Redeployment, is executed.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1911-once-all-there-job-run-go-to-model-deployment-tab-you-will-see-your-model-is-building-deploying-and-finally-deployed" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.11 Once all there job run, go to model deployment tab. you will see your model is building, deploying and finally deployed.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1912-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.12 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1913-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      19.13 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-model-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      20. Model Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#201-go-to-the-sessions-tab-select-your-running-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.1 Go to the sessions tab &amp; select your running session
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#202-open-06_model_simulationpy-and-update-connection_name-variable-at-line-no-62" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.2 Open 06_model_simulation.py and update CONNECTION_NAME variable at line no 62.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#203-click-on-1h-as-shown-in-the-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.3 Click on 1h as shown in the image.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#204" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.4
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#205-open-07_model_monitoringpy-in-your-cml-session" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.5 Open 07_model_monitoring.py in your CML Session
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#206-code-highlights" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.6 Code Highlights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#207-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      20.7 Summary
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#21-end-of-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      21. END of Exercise.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="mlops-in-cloudera-ai-banking-usecase">MlOps in Cloudera AI - Banking Usecase</h1>
+<h2 id="1-mlops-machine-learning-operations-for-a-banking-use-case">1. MLOps (Machine Learning Operations) for a banking use case.</h2>
+<p>The goal is to demonstrate how to implement MLOps practices using <strong>MLFlow</strong> and <strong>Cloudera Machine Learning (CML)</strong>. The exercise provides step-by-step instructions to build, deploy, and manage a machine learning model in a banking context, emphasizing reproducibility, scalability, and operational efficiency.</p>
+<h2 id="2-key-objectives">2. Key Objectives</h2>
+<p><strong>Key Goals of the Exercise:</strong></p>
+<p><strong>Data Generation and Exploration:</strong></p>
+<ul>
+<li>Generate and explore data at scale using PySpark.</li>
+</ul>
+<p><strong>Model Development:</strong></p>
+<ul>
+<li>Develop an XGBoost classifier to predict fraudulent credit card transactions.</li>
+</ul>
+<p><strong>Experiment Tracking:</strong></p>
+<ul>
+<li>Utilize MLflow Tracking to monitor experiments from interactive notebook sessions.</li>
+</ul>
+<p><strong>Model Registry:</strong></p>
+<ul>
+<li>Employ MLflow Registry to package model experiments in a uniform format, facilitating collaboration, deployments, and reproducibility.</li>
+</ul>
+<p><strong>Model Deployment:</strong></p>
+<ul>
+<li>Deploy models as REST endpoints in a high-availability manner, with automated lineage building and metric tracking for MLOps purposes.</li>
+</ul>
+<p><strong>Pipeline Orchestration:</strong></p>
+<ul>
+<li>Use CML Jobs to orchestrate an end-to-end automated pipeline, including monitoring for model drift and automatically initiating model retraining and redeployment as needed.</li>
+</ul>
+<h2 id="3-what-you-will-learn">3. What You Will Learn</h2>
+<p>By completing this exercise, you will gain hands-on experience with:</p>
+<ul>
+<li>Building and deploying machine learning models in a real-world banking context.</li>
+<li>Using MLFlow for experiment tracking, model versioning, and deployment.</li>
+<li>Leveraging CML for end-to-end MLOps workflows.</li>
+<li>Implementing best practices for reproducibility, collaboration, and scalability in machine learning projects.</li>
+</ul>
+<h2 id="4-on-cloudera-console-select-cloudera-ai">4. On Cloudera Console select Cloudera AI</h2>
+<p><a class="glightbox" href="images/step-3.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="On Cloudera Console select Cloudera AI" src="images/step-3.png" /></a></p>
+<h2 id="5-click-on-workbench-name">5. Click on workbench name.</h2>
+<p><a class="glightbox" href="images/step-4.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on workbench name." src="images/step-4.png" /></a></p>
+<h2 id="6-click-on-new-project">6. Click on New Project</h2>
+<p><a class="glightbox" href="images/step-5.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on New Project" src="images/step-5.png" /></a></p>
+<h2 id="7-enter-the-following-parameters-in-the-form">7. Enter the following parameters in the form:</h2>
+<div class="highlight"><pre><span></span><code>Project Name: MLOps HOL &lt;username&gt;
+Project Visibility: Private or Public
+Initial Setup: Git -&gt; https://github.com/cloudera-edu/CML_MLops_Banking_MLFlow.git
+Runtimes:
+  1. Remove all default runtimes.
+  2. Select Advanced Options
+  3. Select: Workbench Editor / Python 3.9 Kernel / Standard Edition / 2024.02 Version
+</code></pre></div>
+<p><a class="glightbox" href="images/step-6.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Enter the following parameters in the form:" src="images/step-6.png" /></a></p>
+<h2 id="8-runtimes">8. Runtimes:</h2>
+<div class="highlight"><pre><span></span><code>  1. Remove all default runtimes.
+  2. Select Advanced Options
+  3. Select: Workbench Editor / Python 3.9 Kernel / Standard Edition / 2024.02 Version
+</code></pre></div>
+<p>Click create project
+<a class="glightbox" href="images/step-7.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Runtimes:" src="images/step-7.png" /></a></p>
+<h2 id="9-go-to-project-settings-data-conections-copy-the-connection-name-to-your-notepad">9. Go to Project settings -&gt; Data Conections -&gt; Copy the Connection Name to your notepad</h2>
+<p>You need this connection name to modify the various scripts in the upcoming step.
+<a class="glightbox" href="images/step-8.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Go to Project settings -&gt; Data Conections -&gt; Copy the Connection Name to your notepad" src="images/step-8.png" /></a></p>
+<h2 id="10-create-a-cml-session-and-install-requirements">10. Create a CML Session and Install Requirements</h2>
+<p>Go to sessions tab and click on new session.
+<a class="glightbox" href="images/step-9.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Create a CML Session and Install Requirements" src="images/step-9.png" /></a></p>
+<h2 id="11-launch-a-cml-session-with">11. Launch a CML Session with:</h2>
+<div class="highlight"><pre><span></span><code>Session Name: Mlops session-userx
+Editor: Workbench
+Kernel: Python 3.9
+Edition: Standard
+Version: 2024.02
+Enable Spark: Version 3.2 or 3.3
+Resource Profile: 2 vCPU / 4 GiB Mem / 0 GPU
+</code></pre></div>
+<p><a class="glightbox" href="images/step-10.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Launch a CML Session with:" src="images/step-10.png" /></a></p>
+<h2 id="12-in-the-prompt-on-the-right-side-enter-the-following-command">12. In the prompt on the right side enter the following command:</h2>
+<div class="highlight"><pre><span></span><code>!pip3 install -r requirements.txt
+</code></pre></div>
+<p>Hit Enter.
+<a class="glightbox" href="images/step-11.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="In the prompt on the right side enter the following command:" src="images/step-11.png" /></a></p>
+<h2 id="13-once-all-packages-have-been-installed-proceed-to-next-step">13. Once all packages have been installed, proceed to next step.</h2>
+<p><a class="glightbox" href="images/step-12.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Once all packages have been installed, proceed to next step." src="images/step-12.png" /></a></p>
+<h2 id="14-open-00_datagenpy-in-your-cml-session-and-update-the-connection-name-on-line-no-160">14. Open 00_datagen.py in your CML Session and update the Connection Name on Line no 160.</h2>
+<p>Save the file and press the play button in order to run the whole script. Code output is available on the right side of your screen.
+<a class="glightbox" href="images/step-13.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 00_datagen.py in your CML Session and update the Connection Name on Line no 160." src="images/step-13.png" /></a></p>
+<h2 id="141-code-highlights">14.1 Code Highlights</h2>
+<p>Line 50: the cml.data_v1 library is imported. This library allows you to take advantage of CML Data Connections in order to launch a Spark Session and connect to the Data Lake. The DataConnection is used at lines 103 - 109 within the "createSparkConnection" module.</p>
+<p>Lines 63 - 94: the "dataGen" module is used to create synthetic data for the classification use case. Observe the data attributes that are being created, and their respective types and value ranges.</p>
+<p>Lines 132 -145: the PySark API for Apache Iceberg is used to create or append data to an Iceberg table format table from a PySpark dataframe.</p>
+<h2 id="142-summary">14.2 Summary</h2>
+<p>In this lab you used CML Data Connections to preconfigure boiler plate code for data access to CDP and 3rd party data sources including Postgres, SQLServer, and even Snowflake. You can customize Data Connections to standardize and simplify Data Access configurations, as well as restrict access from 3rd party systems.</p>
+<p>The PySpark Iceberg API allows you to create Iceberg tables from Spark DataFrames. It is similar and as simple as the standard PySpark API for interacting with Hive tables.</p>
+<h2 id="15-open-01_train_xgboostpy-in-your-cml-session-and-update-the-connection_name-variables-at-lines-55-save-it">15. Open 01_train_xgboost.py in your CML Session and update the CONNECTION_NAME variables at lines 55 &amp; Save it.</h2>
+<p>Next, press the play button in order to run the whole script. You will be able to observe code output on the right side of your screen.
+<a class="glightbox" href="images/step-16.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 01_train_xgboost.py in your CML Session and update the CONNECTION_NAME variables at lines 55 &amp; Save it." src="images/step-16.png" /></a></p>
+<h2 id="151-click-on-project-tab">15.1 Click on project tab.</h2>
+<p><a class="glightbox" href="images/step-17.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on project tab." src="images/step-17.png" /></a></p>
+<h2 id="152-click-on-experiment-tab">15.2 Click on Experiment tab.</h2>
+<p>Validate experiment creation. Open the Experiment Run and familiarize yourself with Experiment Run metadata. At the bottom of the page, open the Artifacts folder and notice that model dependencies have been tracked.
+<a class="glightbox" href="images/step-18.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Experiment tab." src="images/step-18.png" /></a></p>
+<h2 id="153-code-highlights">15.3 Code Highlights</h2>
+<ul>
+<li>Line 41: the MLFlow package is imported. MLFlow is installed in CML Projects by default. An internal Plugin tranaslates MLFlow methods to CML API methods. There is no need to install or configure MLFlow in order to use its Tracking capabilities.</li>
+<li>Lines 71 - 98: XGBoost training code is defined within the context of an MLFlow Experiment Run. XGBoost code is otherwise unchanged. The "mlflow.log_param()" method is used to log model metrics. The "mlflow.log_model()" method is used to track model artifacts in the "artifacts" folder.</li>
+<li>Line 120: the MLFlow Client is used to interact with Experiment Run metadata. You can use the Client to search through runs, compare results, and much more.</li>
+</ul>
+<h2 id="154-summary">15.4 Summary</h2>
+<p>In this lab used MLFlow to track experiment runs in the Experiments UI, access experiment rund ata programmatically via the MLFlow Client, and register Runs to the MLFlow Registry. When an Exoeriment Run is tracked, MLFlow automatically stores model artifacts and dependencies in the backend.</p>
+<p>The Registry is a separate component from the Workspace and acts as a staging environment for optionally moving models and associated dependencies from one Workspace to another, for example in a DEV to QA to PRD pattern.</p>
+<p>MLFlow in CML does not require any installation or configurations on the part of the CML Admins or Users. It is preinstalled by default in every CML Workspace. CML includes a special Plugin that translates MLFlow API calls to CML API v2 routines. You will learn more about CML API v2 in the next section.</p>
+<h2 id="16-click-on-sessions-tab-and-select-your-running-session">16. Click on Sessions tab and select your running session.</h2>
+<p><a class="glightbox" href="images/step-21.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Sessions tab and select your running session." src="images/step-21.png" /></a></p>
+<h2 id="17-return-to-02_api_deploymentpy-and-press-the-play-button-in-order-to-run-the-whole-script-you-will-be-able-to-observe-code-output-on-the-right-side-of-your-screen">17. Return to 02_api_deployment.py and press the play button in order to run the whole script. You will be able to observe code output on the right side of your screen.</h2>
+<p>Once successful run Click on project tab
+<a class="glightbox" href="images/step-22.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Return to 02_api_deployment.py and press the play button in order to run the whole script. You will be able to observe code output on the right side of your screen." src="images/step-22.png" /></a></p>
+<h2 id="171-go-to-model-deployment-tab">17.1 Go to Model Deployment tab</h2>
+<p>You will see your model is building and deploying &amp; finally <strong>Deployed</strong>
+<a class="glightbox" href="images/step-23.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Go to Model Deployment tab" src="images/step-23.png" /></a></p>
+<h2 id="172-code-highlights">17.2 Code Highlights</h2>
+<ul>
+<li>Line 46: the "ModelDeployment" class is imported from the "mlops" util. This util has been placed in the "/home/cdsw" folder.</li>
+<li>Line 49: the CML API client is instantiated. The API provides you with over 100 Python methods to execute actions such as creating projects, launching jobs, and a lot more. In this example, the API is used to "list_projects()".</li>
+<li>Line 62: the API Client is passed as an argument to the ModelDeployment instance. The mlops.py util includes a few methods that extend and override API methods. Typically, CML Machine Learning Engineers create Python Interfaces to build custom MLOps pipelines as required by their use case.</li>
+<li>Line 56-60: the latest MLFlow Experiment Run is used to register the Model in the CML MLFlow Registry.</li>
+<li>Lines 68,74, 78, 81: the registered Model is used to create a new CML Model Deployment. The Model is first created, then built, and finally deployed.</li>
+</ul>
+<h2 id="173-summary">17.3 Summary</h2>
+<p>In this lab you used CML APIv2 allows you to programmatically execute actions within CML Workspaces. You can use the API with plain curl CLI statements, or the Python Wrapper which is a lib that is preinstalled in every Cloudera CML Runtime. The API can be used both from 3rd party systems that are external to the CML Workspace, and within the CML Workspace.</p>
+<p>CML Data Scientists leverage the API to build MLOPs Pipelines. In this lab you used a simple Python Interface to override API methods in order to build a standardized MLOps pipeline to register an Experiment Run in the MLFlow Registry, and then deploy an API Endpoint for model serving.</p>
+<h2 id="18-click-on-sessions-tab-and-select-your-running-session">18. Click on Sessions tab and select your running session.</h2>
+<p><a class="glightbox" href="images/step-26.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Sessions tab and select your running session." src="images/step-26.png" /></a></p>
+<h2 id="19-mlops-pipeline">19. MLOps Pipeline</h2>
+<p>This section explains the most important aspects of 03_newbatch.py, 04_train_xgboost.py, and 05_api_redeployment.py.</p>
+<p>In the above script only update the <strong>CONNECTION_NAME</strong> and don't run script.</p>
+<p>Follow below steps to update the <strong>CONNECTION_NAME</strong></p>
+<h2 id="191-open-03_newbatchpy">19.1 Open 03_newbatch.py</h2>
+<p>Go to line 159, update the connection name, and save this file.
+<a class="glightbox" href="images/step-28.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 03_newbatch.py" src="images/step-28.png" /></a></p>
+<h2 id="192-open-04_train_xgboostpy-update-the-connection_name-variables-at-line-no-55-save-it">19.2 Open 04_train_xgboost.py &amp; update the CONNECTION_NAME variables at line no 55 &amp; Save it.</h2>
+<p><a class="glightbox" href="images/step-29.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 04_train_xgboost.py &amp; update the CONNECTION_NAME variables at line no 55 &amp; Save it." src="images/step-29.png" /></a></p>
+<h2 id="193-open-05_api_redeploymentpy-update-the-connection_name-variables-at-line-no-210-save-it">19.3 Open 05_api_redeployment.py &amp; update the CONNECTION_NAME variables at line no 210 &amp; Save it.</h2>
+<p>Click on project tab.
+<a class="glightbox" href="images/step-30.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 05_api_redeployment.py &amp; update the CONNECTION_NAME variables at line no 210 &amp; Save it." src="images/step-30.png" /></a></p>
+<h2 id="194-create-a-cml-job-for-each-do-not-run-the-jobs-yet">19.4 Create a CML Job for each. Do not run the jobs yet.</h2>
+<p>Go to the Jobs tab and click on New Job.</p>
+<p>Please do not run the below job just create three jobs as per the below steps.
+<a class="glightbox" href="images/step-31.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Create a CML Job for each. Do not run the jobs yet." src="images/step-31.png" /></a></p>
+<h2 id="195-create-job-new-batch-with-the-following-configurations">19.5 Create Job "New Batch" with the following configurations:</h2>
+<div class="highlight"><pre><span></span><code>Name: New Batch Userx
+Script: 03_newbatch.py
+Editor: Workbench
+Kernel: Python 3.9
+Spark Add On: Spark 3.2 or 3.3
+Edition: Standard
+Version: 2024.02
+Schedule: Manual
+Resource Profile: 2 vCPU / 4 Gib / 0 GPU
+</code></pre></div>
+<p>Click Create
+<a class="glightbox" href="images/step-32.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Create Job &quot;New Batch&quot; with the following configurations:" src="images/step-32.png" /></a></p>
+<h2 id="196-click-on-new-job">19.6 Click on New Job</h2>
+<p><a class="glightbox" href="images/step-33.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on New Job" src="images/step-33.png" /></a></p>
+<h2 id="197-create-job-new-batch-with-the-following-configurations">19.7 Create Job "New Batch" with the following configurations:</h2>
+<div class="highlight"><pre><span></span><code>Name: Retrain XGBoost Userx
+Script: 04_train_xgboost.py
+Editor: Workbench
+Kernel: Python 3.9
+Spark Add On: Spark 3.2 or 3.3
+Edition: Standard
+Version: 2024.02
+Schedule: Dependent on New Batch Userx
+Resource Profile: 2 vCPU / 4 Gib / 0 GPU
+</code></pre></div>
+<p>Click Create
+<a class="glightbox" href="images/step-34.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Create Job &quot;New Batch&quot; with the following configurations:" src="images/step-34.png" /></a></p>
+<h2 id="198-click-on-new-job">19.8 Click on New Job</h2>
+<p>You should see the dependency
+<a class="glightbox" href="images/step-35.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on New Job" src="images/step-35.png" /></a></p>
+<h2 id="199-create-job-new-batch-with-the-following-configurations">19.9 Create Job "New Batch" with the following configurations:</h2>
+<div class="highlight"><pre><span></span><code>Name: API Redeployment Userx
+Script: 05_api_redeployment.py
+Editor: Workbench
+Kernel: Python 3.9
+Spark Add On: Spark 3.2 or 3.3
+Edition: Standard
+Version: 2024.02
+Schedule: Dependent on Retrain XGBoost Userx
+Resource Profile: 2 vCPU / 4 Gib / 0 GPU
+</code></pre></div>
+<p>Click Create.
+<a class="glightbox" href="images/step-36.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Create Job &quot;New Batch&quot; with the following configurations:" src="images/step-36.png" /></a></p>
+<h2 id="1910-once-you-created-all-three-jobs-manually-trigger-the-new-batch-job-monitor-execution-in-the-job-history-tab-and-observe-that-once-it-is-complete-the-next-job-in-the-mlops-pipeline-retrain-xgboost-is-triggered-and-finally-the-last-job-api-redeployment-is-executed">19.10 Once you created all three jobs, manually trigger the New Batch job. Monitor execution in the Job History tab, and observe that once it is complete the next job in the MLOps pipeline, Retrain XGBoost, is triggered, and finally the last job, API Redeployment, is executed.</h2>
+<p><a class="glightbox" href="images/step-37.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Once you created all three jobs, manually trigger the New Batch job. Monitor execution in the Job History tab, and observe that once it is complete the next job in the MLOps pipeline, Retrain XGBoost, is triggered, and finally the last job, API Redeployment, is executed." src="images/step-37.png" /></a></p>
+<h2 id="1911-once-all-there-job-run-go-to-model-deployment-tab-you-will-see-your-model-is-building-deploying-and-finally-deployed">19.11 Once all there job run, go to model deployment tab. you will see your model is building, deploying and finally deployed.</h2>
+<p>Once finally deployed, go to the next step.
+<a class="glightbox" href="images/step-38.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Once all there job run, go to model deployment tab. you will see your model is building, deploying and finally deployed." src="images/step-38.png" /></a></p>
+<h2 id="1912-code-highlights">19.12 Code Highlights</h2>
+<ul>
+<li>03_newbatch.py is mostly identical to 00_datagen.py.</li>
+<li>04_train_xgboost.py is nearly identical to "01_train_xgboost.py". However, at lines 66-68 Iceberg Snapshot metadata is stored as variables. This metadata is used at lines 70-74 in order to perform an Incremental Read i.e. only loading data from the Iceberg table within a start and end time boundary. The metadata is then saved as MLFlow Tags during Experiment Run execution.</li>
+<li>05_api_redeployment.py includes both methods from the mlops util and code to execute the MLOps pipeline. This is also nearly identical to the code in "02_api_deployment.py".</li>
+</ul>
+<h2 id="1913-summary">19.13 Summary</h2>
+<p>In this lab you used CML Jobs in tandem with CML APIv2, Apache Iceberg, and MLFlow in order to orchestrate a more advanced MLOps pipeline. With just three scripts and a few lines of code, you've implemented a standardized CI/CD Process that adhers to MLOps Best Practices including data and model reproducibility, auditability, explainability. You did this leveraging built-in components and without any custom installations.</p>
+<ul>
+<li>In the first job, a new data batch is appended to the Iceberg Credit Card Transaction table.</li>
+<li>In the second job, you used Iceberg Time Travel in order to read data within specified time boundaries - in other words to access the latest batch of data only - and then retrain the same XGBoost Classifier with this data.</li>
+<li>Finally, in the last job, you redeployed a new API Endpoint version with the latest model version.</li>
+</ul>
+<h2 id="20-model-monitoring">20. Model Monitoring</h2>
+<p>This section explains the most important aspects of 06_model_simulation.py and 07_model_monitoring.py.</p>
+<h2 id="201-go-to-the-sessions-tab-select-your-running-session">20.1 Go to the sessions tab &amp; select your running session</h2>
+<p>If your session expires, then create a new session.
+<a class="glightbox" href="images/step-42.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Go to the sessions tab &amp; select your running session" src="images/step-42.png" /></a></p>
+<h2 id="202-open-06_model_simulationpy-and-update-connection_name-variable-at-line-no-62">20.2 Open 06_model_simulation.py  and update CONNECTION_NAME variable at line no 62.</h2>
+<p>Click save. </p>
+<p>Execute 06_model_simulation.py and immediately navigate out of the Session to the CML Model Deployment. Open the Monitoring tab and watch the monitoring dashboard get updated in real time as requests are received by the model endpoint.
+<a class="glightbox" href="images/step-43.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 06_model_simulation.py  and update CONNECTION_NAME variable at line no 62." src="images/step-43.png" /></a></p>
+<h2 id="203-click-on-1h-as-shown-in-the-image">20.3 Click on <strong>1h</strong> as shown in the image.</h2>
+<p><a class="glightbox" href="images/step-44.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on **1h** as shown in the image." src="images/step-44.png" /></a></p>
+<h2 id="204">20.4</h2>
+<p><a class="glightbox" href="images/step-45.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="" src="images/step-45.png" /></a></p>
+<h2 id="205-open-07_model_monitoringpy-in-your-cml-session">20.5 Open 07_model_monitoring.py in your CML Session</h2>
+<p>Do not edit anything for this step.</p>
+<p>Run 07_model_monitoring.py. Explore the model monitoring diagrams on the right side of the page. How is your model performing?
+<a class="glightbox" href="images/step-46.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Open 07_model_monitoring.py in your CML Session" src="images/step-46.png" /></a></p>
+<h2 id="206-code-highlights">20.6 Code Highlights</h2>
+<p>06_model_simulation.py creates more synthetic data and leverages the CDSW SDK to interact with the deployed endpoints. The data is submitted to the model along with ground truth in order to simulate a wave of requests to the endpoint.</p>
+<ul>
+<li>Line 41: the cdsw sdk is imported. This does not need to be installed.</li>
+<li>Lines 90-129: a method to submit request batches to the specified Model Deployment endpoint.</li>
+<li>Lines 133-153: a method to submit ground truth to the specified Model Deployment endpoint.</li>
+</ul>
+<p>07_model_monitoring.py shows you how you can monitor model performance programmatically. CML features a Postgres Database called "Model Metrics Store" that automatically stores metadata for each request by deployed model. In this script, the cdsw SDK is used again in order to read model metadata and access the Model Metrics Store.</p>
+<ul>
+<li>Lines 64-67: the ApiUtility is instantiated to obtain model metadata. The util's source code is located in the src folder. Similarly to the "mlops" util you leveraged in 02_api_deployment.py, this util allows you to build custom methods in order to obtain model metadata as needed by your use case.</li>
+<li>Line 76: cdsw.read_metrics() is used to read the tracked model requests from the Model Metrics Store.</li>
+<li>Seaborn and Pandas are used throughout the rest of the script in order to create the model performance plots.</li>
+</ul>
+<h2 id="207-summary">20.7 Summary</h2>
+<p>In this lab you used the cdsw SDK to access predictions requests and ground truth backed up in the CML Model Metrics Store in order to monitor model performance (Accuracy).</p>
+<p>You can leverage the same tools in unison with scheduled CML Jobs to create continuous monitoring systems and, similarly to the previous labs, programmatically deploy new model versions when performance criteria are not met.</p>
+<h2 id="21-end-of-exercise">21. END of Exercise.</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Cloudera Inc. 2025
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

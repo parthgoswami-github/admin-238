@@ -1,0 +1,1 @@
+We’ve also greatly improved the model monitoring experience for technical metrics, such as throughput and resource utilization. Whereas before you had to go to grafana to see these details, we now have all of the key metrics you care about as an ML engineer right there in the main UI for your model REST API.

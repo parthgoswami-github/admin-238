@@ -1,0 +1,12 @@
+Industrialized machine learning requires more than tools for building and training models… here’s what industrialized ML for powering intelligent apps from the Edge2AI looks like:
+
+Data streaming or batch ingested into the pipeline
+Data engineering to clean and prep
+Building and training models
+Embedding intelligence in the fabric of business, whether through:
+Predictive services/APIs
+BI Dashboards
+Data Products/Apps
+Intelligent edge devices
+
+Bottom line:  Industrial AI requires a platform for intelligence from the edge to AI and back.

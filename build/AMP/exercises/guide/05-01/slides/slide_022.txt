@@ -1,0 +1,3 @@
+The term model means different things to different audiences. Cloudera looks at models, most simply, as a collection of code that makes up an algorithm designed to - given input data - provide predictions. This code can take many forms from Python applications, to R, and from batch and streaming. 
+
+Managing models in production for a few models can be a trivial exercise. However, Cloudera customers are wanting to deploy hundreds to thousands of models throughout their entire business - it is impossible to scale without repeatable processes and systems in order to cover monitoring, governance, and lifecycle management of models.

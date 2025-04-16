@@ -1,0 +1,22 @@
+Let’s now explore the **key features of Apache Iceberg**. This is a powerful table format that offers a lot of flexibility and functionality, making it a great choice for modern data architectures. Let’s go through each of these features one by one.
+
+First, Iceberg is **engine agnostic**. What does that mean? It means that Iceberg can work with multiple processing engines. Whether you’re using Spark, Flink, Hive, or another engine, Iceberg integrates seamlessly. This is a huge advantage because it gives you the flexibility to choose the best tool for your specific use case without being locked into a single ecosystem.
+
+Next, we have **SDX Integration**. SDX stands for Shared Data Experience, and it’s a framework that allows for secure and efficient data sharing across different platforms and teams. Iceberg’s integration with SDX makes it easier to manage and share data in a secure manner.
+
+Iceberg also offers **ease of adoption**. If you’re already using other data formats, transitioning to Iceberg is relatively straightforward. This lowers the barrier to entry and allows teams to start benefiting from Iceberg’s features without a steep learning curve.
+
+One of the standout features is **ACID transactions**. ACID stands for Atomicity, Consistency, Isolation, and Durability. These properties ensure that your data transactions are reliable and consistent, even in complex, multi-user environments. This is crucial for maintaining data integrity, especially in large-scale systems.
+
+Iceberg supports both **streaming and batch ingestion**. This means you can use Iceberg for real-time data processing as well as traditional batch processing. This flexibility is essential for modern data pipelines that need to handle a variety of data ingestion patterns.
+
+Another powerful feature is **time travel and table rollback**. This allows you to query data as it existed at a specific point in time or roll back to a previous state of the table. This is incredibly useful for debugging, auditing, and recovering from errors.
+
+**Table maintenance** is another key feature. Regular maintenance tasks, like compaction and cleaning up old data, help keep your tables optimized for performance. This ties into **in-place table evolution**, which allows you to make changes to your table schema without needing to rewrite the entire dataset.
+
+**Hidden partitioning** is a feature that abstracts away the complexity of managing partitions. Iceberg handles partitioning automatically, so you don’t have to worry about the underlying details. This simplifies data management and improves query performance.
+
+Finally, Iceberg is designed for **performance and scalability**. As we’ve seen in previous slides, Iceberg can handle massive datasets with consistent performance, making it a robust choice for large-scale data processing.
+
+These features collectively make Apache Iceberg a versatile and powerful tool for modern data management.
+

@@ -1,0 +1,3 @@
+Machine Learning isn’t a single activity - it’s an end to end workflow with many phases. It’s critical that customers look at the end to end capability for developing data pipelines for ML, the model development life cycle including model training, to the software development discipline of moving models to production and keeping them up and monitoring overall model health - including mathematical boundaries along with the technical performance.
+
+Finally, getting models to production is only half the battle. You need capabilities that help you manage, govern, and discover models in addition to the data itself. Cloudera looks to provide SDX functionality for this with a focus on Models.

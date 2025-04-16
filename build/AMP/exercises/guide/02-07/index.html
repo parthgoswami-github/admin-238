@@ -1,0 +1,1613 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Cloudera Education">
+      
+      
+      
+        <link rel="prev" href="../02-06/index.html">
+      
+      
+        <link rel="next" href="../02-08/index.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>02-07 Moving the flow to the flow catalog - DENG-259: Building Solutions with Cloudera Data Services</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#02-07-moving-the-flow-to-the-flow-catalog" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="DENG-259: Building Solutions with Cloudera Data Services" class="md-header__button md-logo" aria-label="DENG-259: Building Solutions with Cloudera Data Services" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-cloudera-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DENG-259: Building Solutions with Cloudera Data Services
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              02-07 Moving the flow to the flow catalog
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="DENG-259: Building Solutions with Cloudera Data Services" class="md-nav__button md-logo" aria-label="DENG-259: Building Solutions with Cloudera Data Services" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-cloudera-white.svg" alt="logo">
+
+    </a>
+    DENG-259: Building Solutions with Cloudera Data Services
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Course Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table of Contents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    01 Get Aboard
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            01 Get Aboard
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-01 Get Aboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-02 Getting Aboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    02 Using Cloudera Data Flow
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            02 Using Cloudera Data Flow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-01 Using Cloudera Data Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-02 Accessing Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-03 Define Workload Password
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-04 Verify permissions in Apache Ranger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-05 Create a Flow using Flow Designer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-06/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-06 Testing the flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    02-07 Moving the flow to the flow catalog
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-07 Moving the flow to the flow catalog
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-publish-the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Publish the Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deploying-the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Deploying the flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verifying-flow-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verifying flow deployment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-suspend-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Suspend flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-end-of-the-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. End of the Exercise
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-08/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-08 Migrating Existing Data Flows to CDF-PC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-09/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-09 Managing KeyTabs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-10/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-10 Working on SQL Steam Builder Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    03 Using Cloudera Data Engineering - Airflow
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            03 Using Cloudera Data Engineering - Airflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-01 Using Cloudera Data Engineering - Airflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-02 Accessing Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-03 Building Your First CDE Airflow DAG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-04 Beyond Airflow for Spark Jobs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-05 More Airflow DAG Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    04 Using Cloudera Data Warehouse
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            04 Using Cloudera Data Warehouse
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-01 Using Cloudera Data Warehouse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-02 Introdction and Access
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-03 CDW raw layer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-04 Datalakehouse Hive and Iceberg
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-05 Performance Optimization & Lakehouse Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-06/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-06 Data Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    05 Using Cloudera AI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            05 Using Cloudera AI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-01 Using Cloudera AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-02 MLOps in Cloudera AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    06 Integrating Cloudera Data Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            06 Integrating Cloudera Data Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06-01 Use Case: Stock Data Analysis Using Cloudera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06-02 End-to-End Stock Data Processing with Cloudera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    07 Course Summary
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            07 Course Summary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    07-01 Course Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-publish-the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Publish the Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-deploying-the-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Deploying the flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-verifying-flow-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Verifying flow deployment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-suspend-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Suspend flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-end-of-the-exercise" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. End of the Exercise
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="02-07-moving-the-flow-to-the-flow-catalog">02-07 Moving the flow to the flow catalog</h1>
+<p>After the flow has been created and tested, we can now Publish the flow to the Flow Catalog.</p>
+<h3 id="1-publish-the-flow">1. Publish the Flow  <a name="9DYsSnQW3cRhlB6ENiTx9"></a></h3>
+<h4 id="11-stop-test-session">1.1. Stop Test Session  <a name="2QniEdkgvCR3CoeoKFajA"></a></h4>
+<p>Stop the current test session by clicking on the green tab on top right corner indicating <code>Active Test Session</code>. </p>
+<p><a class="glightbox" href="images/step-1.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Stop Test Session" src="images/step-1.png" /></a></p>
+<h4 id="12-click-on-end">1.2. Click on End.  <a name="31Za6pVouvq3R52RyI4N7"></a></h4>
+<p><a class="glightbox" href="images/step-2.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on End." src="images/step-2.png" /></a></p>
+<h4 id="13-review-session-status">1.3. Review Session Status  <a name="plWFFPtOX6VI8wiuYr0B1"></a></h4>
+<p>Keep a check on the Test Session status as it turns red. </p>
+<p><a class="glightbox" href="images/step-3.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Session Status" src="images/step-3.png" /></a></p>
+<h4 id="14-publish-flow">1.4. Publish Flow  <a name="7azRHdhOb94X43lKlcHFO"></a></h4>
+<p>Once the session stops click on <code>Flow Options</code> on the top right corner of your screen and click on <code>Publish</code>.</p>
+<p><a class="glightbox" href="images/step-4.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Publish Flow" src="images/step-4.png" /></a></p>
+<h4 id="15-name-the-flow">1.5. Name the flow  <a name="N6JPVDL_rhypx0DP-L2V8"></a></h4>
+<p>Give your flow a unique name and click on <code>Publish</code>.</p>
+<p><code>Flow Name</code>: <code>{user_id}_datadump_flow</code> (Ex: <code>dse_2_250204_datadump_flow</code>).</p>
+<p><a class="glightbox" href="images/step-5.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Name the flow" src="images/step-5.png" /></a></p>
+<h4 id="16-review-success-message">1.6. Review Success Message  <a name="duQi76b8tbXd_J3Z_ALsC"></a></h4>
+<p>The flow will now be visible on the Flow <code>Catalog</code> and is ready to be deployed.</p>
+<p><a class="glightbox" href="images/step-6.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Success Message" src="images/step-6.png" /></a></p>
+<h3 id="2-deploying-the-flow">2. Deploying the flow  <a name="cKmfyioEEsa-kx7zPNRrB"></a></h3>
+<h4 id="21-click-on-menu">2.1. Click on Menu  <a name="SLf0LlFbc-8KKiZESpA1L"></a></h4>
+<p>Select the Catalog option. </p>
+<p><a class="glightbox" href="images/step-8.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Menu" src="images/step-8.png" /></a></p>
+<h4 id="22-search-for-the-flow-catalog">2.2. Search for the Flow Catalog  <a name="AG5DCM76Ie-oZoQbZNNFb"></a></h4>
+<p>Search for the <code>Flow Catalog</code> by typing the name of the flow that you just now published. </p>
+<p>Click on the flow. </p>
+<p><a class="glightbox" href="images/step-9.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Search for the Flow Catalog" src="images/step-9.png" /></a></p>
+<h4 id="23-deploy-flow">2.3. Deploy Flow  <a name="qKBtgE0fmFJP1lWmOL6d0"></a></h4>
+<p>You should see the option to <code>Deploy</code>. Verify 'Version 1' and then click on <code>Deploy</code>. </p>
+<p><a class="glightbox" href="images/step-10.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Deploy Flow" src="images/step-10.png" /></a></p>
+<h4 id="24-click-continue">2.4. Click Continue  <a name="DcWYx5wFEBab_KcKTDpr3"></a></h4>
+<p>The target workspace should be pre-selected for you. </p>
+<p>Click <strong>Continue</strong>.</p>
+<p><a class="glightbox" href="images/step-11.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click Continue" src="images/step-11.png" /></a></p>
+<h4 id="25-name-the-deployment">2.5. Name the Deployment  <a name="N0OT76S_txRApqTW4BXFV"></a></h4>
+<p>Give a unique name to the deployment.</p>
+<p>Deployment Name: <code>{user_id}_flow_prod</code></p>
+<p>(Ex: <code>dse_2_250204_flow_prod</code>).</p>
+<p>Click <strong>Next</strong></p>
+<p><a class="glightbox" href="images/step-12.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Name the Deployment" src="images/step-12.png" /></a></p>
+<h4 id="26-set-nifi-configuration">2.6. Set Nifi Configuration  <a name="FV-nyYpvX0RxL2ro9gLKJ"></a></h4>
+<p>In this step we let everything be the default and click <strong>Next.</strong></p>
+<p><a class="glightbox" href="images/step-13.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Set Nifi Configuration" src="images/step-13.png" /></a></p>
+<h4 id="27-set-the-parameters">2.7. Set the Parameters  <a name="kIHa6foLu_oy790xGd3Ru"></a></h4>
+<p>Set the parameters are following:</p>
+<ul>
+<li>CDP Workload User: <code>The username assigned to you</code>. </li>
+<li>Ex: <code>dse_2_250204</code>.</li>
+<li>CDP Workload User Password: <code>Workload User password set by you earlier in exercise 02-03 'Define Workload Password'</code>.</li>
+<li>S3 Directory: <code>LabData</code></li>
+</ul>
+<p><a class="glightbox" href="images/step-14.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Set the Parameters" src="images/step-14.png" /></a></p>
+<h4 id="28-set-the-cluster-size">2.8. Set the cluster size  <a name="mZanmyfYOVt2lrglk1woy"></a></h4>
+<p>Select the <code>Extra Small</code> size. In this step you can configure how your flow will auto scale, but keep it disabled for this lab. Select the standard storage selection. </p>
+<p>Click <strong>Next.</strong></p>
+<p><a class="glightbox" href="images/step-15.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Set the cluster size" src="images/step-15.png" /></a></p>
+<h4 id="29-add-key-performance-indicators">2.9. Add Key Performance indicators  <a name="TXPIQQqBgdnuzAh7vty5D"></a></h4>
+<p>Set up KPIs to track specific performance metrics of a deployed flow.</p>
+<p>Click on <strong>Add New KPI</strong>.</p>
+<p><a class="glightbox" href="images/step-16.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Add Key Performance indicators" src="images/step-16.png" /></a></p>
+<h4 id="210-fill-in-the-details">2.10. Fill in the details   <a name="ufZ3ozKhwnH2KraYDFfQY"></a></h4>
+<p>In the <code>Add New KPI</code> window, fill in the details as below.</p>
+<ul>
+<li>KPI Scope: <code>Connection</code></li>
+<li>Connection Name: <code>failure_Move2S3</code></li>
+<li>Metric to Track: <code>Percent Full</code></li>
+<li>Check box against <code>Trigger alert when metric is greater than</code>: <code>50Percent</code>.</li>
+</ul>
+<p><code>Alert will be triggered when metric is outside the boundary(s) for</code>: <code>2Minutes</code>.</p>
+<p>Click <strong>Add.</strong></p>
+<p><a class="glightbox" href="images/step-17.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Fill in the details " src="images/step-17.png" /></a></p>
+<h4 id="211-review-kpi">2.11. Review KPI  <a name="cXoYc92GPFdxPKh7pC1Gm"></a></h4>
+<p>Click <strong>Next</strong>. </p>
+<p><a class="glightbox" href="images/step-18.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review KPI" src="images/step-18.png" /></a></p>
+<h4 id="212-click-deploy">2.12. Click Deploy  <a name="yppv-X0jQvpH3Pcatsq7i"></a></h4>
+<p><a class="glightbox" href="images/step-19.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click Deploy" src="images/step-19.png" /></a></p>
+<h4 id="213-review-deployment-initiated-message">2.13. Review Deployment Initiated message  <a name="rMjt4HfJqevqq8nJAApBf"></a></h4>
+<p>The <em>Deployment Initiated</em> message will be displayed. Wait until the flow deployment is completed, which might take a few minutes. </p>
+<p><a class="glightbox" href="images/step-20.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Deployment Initiated message" src="images/step-20.png" /></a></p>
+<h4 id="214-review-deployment">2.14. Review Deployment  <a name="prT0yHWkBYvVrWknmLa_I"></a></h4>
+<p>When deployed, the flow will show up on the Data flow dashboard, as below.</p>
+<p><a class="glightbox" href="images/step-21.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Deployment" src="images/step-21.png" /></a></p>
+<h4 id="215-list-the-files">2.15. List the files  <a name="RPd7rEMY-MfHUwBoLaPrS"></a></h4>
+<p>The data gets populated in the S3 bucket. </p>
+<p>Run the same command as executed earlier to list the files under your user. </p>
+<div class="highlight"><pre><span></span><code>hdfs dfs -ls s3a://cdp-storage-devops-570-class-250204/user/dse_2_250204/LabData
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>Syntax: hdfs dfs -ls &lt;storage-location&gt;/user/&lt;username&gt;/LabData/
+</code></pre></div>
+<p><a class="glightbox" href="images/step-22.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="List the files" src="images/step-22.png" /></a></p>
+<h4 id="216-click-on-flow">2.16. Click on Flow  <a name="Cibe6xqiu9hLRjK5BU_Vz"></a></h4>
+<p>Click in the empty area in the left hand side to take a look at the flow. </p>
+<p><a class="glightbox" href="images/step-23.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Flow" src="images/step-23.png" /></a></p>
+<h4 id="217-review-flow">2.17. Review Flow  <a name="0kEgzCw8ZB2WHSV0FONO_"></a></h4>
+<p>After a while you will see the flow something like below for the flow you just deployed.</p>
+<p><a class="glightbox" href="images/step-24.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Flow" src="images/step-24.png" /></a></p>
+<h3 id="3-verifying-flow-deployment">3. Verifying flow deployment  <a name="PMo6q43rAKKVxXKryvGky"></a></h3>
+<h4 id="31-select-manage-deployment">3.1. Select Manage Deployment  <a name="G5glPUjLAIYfCXNDL77QA"></a></h4>
+<p>Click on the flow in the Dashboard and select <code>Manage Deployment</code> under <strong>Actions</strong> button. </p>
+<p><a class="glightbox" href="images/step-26.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Select Manage Deployment" src="images/step-26.png" /></a></p>
+<h4 id="32-review-deployment">3.2. Review Deployment  <a name="fjr2fyQ7QJ6ssZ6tflF8g"></a></h4>
+<p><a class="glightbox" href="images/step-27.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Deployment" src="images/step-27.png" /></a></p>
+<h4 id="33-review-kpi-and-alerts">3.3. Review KPI and Alerts  <a name="g-ZWqQfEtKWbFOzlRJcfZ"></a></h4>
+<p>Click on the <code>KPI and Alerts</code> tab under <code>Deployment Settings</code> to get the list of KPIs that have been set. You also have an option to modify or add more KPIs to your flow here.</p>
+<p><a class="glightbox" href="images/step-28.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review KPI and Alerts" src="images/step-28.png" /></a></p>
+<h4 id="34-review-sizing-and-scaling">3.4. Review Sizing and Scaling  <a name="CEIWvuSuEa6-6p1UZ3QFo"></a></h4>
+<p>Click on the <code>Sizing and Scaling</code> tab to get detailed information.</p>
+<p><a class="glightbox" href="images/step-29.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Sizing and Scaling" src="images/step-29.png" /></a></p>
+<h4 id="35-review-parameters">3.5. Review Parameters  <a name="EmeDTxQbe0uYPV1bOqbfp"></a></h4>
+<p>The parameters that we earlier created can be managed from the Parameters tab. Click on <code>Parameters</code>.</p>
+<p><a class="glightbox" href="images/step-30.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Parameters" src="images/step-30.png" /></a></p>
+<h4 id="36-review-nifi-configurations">3.6. Review NiFi Configurations  <a name="Upi2JB4CV1dc_1Q4qYG8Z"></a></h4>
+<p>If you have set any configuration w.r.t to Nifi they will show up on the <code>NiFi Configuration</code> tab.</p>
+<p><a class="glightbox" href="images/step-31.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review NiFi Configurations" src="images/step-31.png" /></a></p>
+<h4 id="37-view-in-nifi">3.7. View in NiFi  <a name="3KwpNiue4On8Re1OOeGd0"></a></h4>
+<p>Click on <code>Actions</code> and then click on <code>View in NiFi</code>. This will open the flow in the Nifi UI.</p>
+<p><a class="glightbox" href="images/step-32.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="View in NiFi" src="images/step-32.png" /></a></p>
+<h4 id="38-review-flow-in-nifi-ui">3.8. Review flow in Nifi UI  <a name="9HufllrWx9KGbYeJTT0w1"></a></h4>
+<p><a class="glightbox" href="images/step-33.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review flow in Nifi UI" src="images/step-33.png" /></a></p>
+<h3 id="4-suspend-flow">4. Suspend flow  <a name="R-RqLrXoNzxuQ6UwDg7qt"></a></h3>
+<p>We will now suspend this flow. </p>
+<h4 id="41-click-on-suspend-deployment">4.1. Click on Suspend Deployment  <a name="WIbijIrUHK6Soe7IKpLgN"></a></h4>
+<p>Navigate back to the Manage Deployment page. Click on <code>Actions</code> and then <code>Suspend Deployment</code>.</p>
+<p><a class="glightbox" href="images/step-35.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Suspend Deployment" src="images/step-35.png" /></a></p>
+<h4 id="42-click-on-suspend-flow">4.2. Click on Suspend Flow  <a name="XkQxdXaZ0sYN-ZZiGyJGh"></a></h4>
+<p>Click on the verification <code>Suspend Flow</code>.</p>
+<p><a class="glightbox" href="images/step-36.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Click on Suspend Flow" src="images/step-36.png" /></a></p>
+<h4 id="43-observe-the-status">4.3. Observe the status  <a name="q7ezfBoLViThFZv1yfECP"></a></h4>
+<p>Observe the change in the status of the flow.</p>
+<p><a class="glightbox" href="images/step-37.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Observe the status" src="images/step-37.png" /></a></p>
+<h4 id="44-review-deployment-state">4.4. Review Deployment State  <a name="qHv4c3Lx8l-0GSCs3yXcs"></a></h4>
+<p>After a few minutes, the status of the deployment has been changed to Suspended. </p>
+<p><a class="glightbox" href="images/step-38.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="Review Deployment State" src="images/step-38.png" /></a></p>
+<h3 id="5-end-of-the-exercise">5. End of the Exercise   <a name="U5Q3T1_qD2K2y31w8PiCz"></a></h3>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Cloudera Inc. 2025
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

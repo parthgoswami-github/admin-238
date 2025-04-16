@@ -1,0 +1,78 @@
+site_name: 'Predicting with MLOps in Cloudera AI'
+site_author: Cloudera Education
+copyright: Cloudera Inc. 2024
+theme:
+    name: material
+    logo: assets/images/logo-cloudera-white.svg
+    palette:
+    - scheme: default
+      primary: #FFFFFF
+      accent: #121212
+      toggle:
+        name: Switch to light mode
+        icon: material/weather-sunny
+    - scheme: slate
+      primary: pink
+      accent: pink
+      toggle:
+        name: Switch to dark mode
+        icon: material/weather-night
+    features:
+    - content.code.annotate
+    - content.code.copy
+
+docs_dir: '../instructor-guide'
+site_dir: '../build/instructor-guide'
+extra_css:
+  - stylesheets/extra.css
+use_directory_urls: false
+
+
+nav:
+    - Home: 'guide/README.md'
+    - 'Working with Git': 'guide/01-01-git/README.md'
+    - 'Working with GitHub Actions': 'guide/01-02-intro-githubactions/README.md'
+    - 'CI/CD Pipeline Using GitHub Actions': 'guide/01-03-ci-cd-githubactions/README.md'
+    - 'Working with Docker': 'guide/01-04-docker/README.md'
+    - 'Docker- CI/CD project using GitHub Actions': 'guide/01-05-docker-ci-cd/README.md'
+    - 'Working with Kubernetes': 'guide/01-06-k8s/README.md'
+    - 'Introduction to Cloudera AI': 'guide/02-01-introduction/README.md'
+    - 'Get started with CML API': 'guide/02-02-cml-api/README.md'
+    - 'CI-CD workflows in Cloudera AI': 'guide/02-04-ci-cd-cml/README.md'
+    - 'MlOps with Mlflow': 'guide/02-03-mlops-with-mlflow/README.md'
+    - 'Mlops in Cloudera AI': 'guide/03-01-mlops-cdp/README.md'
+    - 'Continuous Model Monitoring with Evidently': 'guide/03-02-model_monitoring/README.md'
+    - 'Instructor-Led Exercise-Monitoring ML Workspaces': 'guide/03-03-Monitoring ML Workspaces/README.md'
+    - 'Data - Access, Audit, and Mask': 'guide/04-01-data_access/README.md'
+    - 'Visualize Duocar Data': 'guide/04-02-data_visualization/README.md'
+    - 'Streamlit on Cloudera AI': 'guide/04-03-streamlit/README.md'
+    - 'Autoscaling, Performance, and GPU Settings': 'guide/04-04-autoscaling/README.md'
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.keys
+  - admonition
+  - pymdownx.details
+  - toc:
+      toc_depth: 2
+  - sane_lists: {}
+
+
+plugins:
+  - search
+  - markdownextradata: {}
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      width: 80%
+      height: auto
+      zoomable: true
+      draggable: true
+
+extra:
+  github:
+    url: "https://github.com/sanketmote05/portfolio-website"

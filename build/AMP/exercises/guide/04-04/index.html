@@ -1,0 +1,1825 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Cloudera Education">
+      
+      
+      
+        <link rel="prev" href="../04-03/index.html">
+      
+      
+        <link rel="next" href="../04-05/index.html">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.11">
+    
+    
+      
+        <title>04-04 Datalakehouse Hive and Iceberg - DENG-259: Building Solutions with Cloudera Data Services</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.4af4bdda.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+    html.glightbox-open { overflow: initial; height: 100%; }
+    .gslide-title { margin-top: 0px; user-select: text; }
+    .gslide-desc { color: #666; user-select: text; }
+    .gslide-image img { background: white; }
+    .gscrollbar-fixer { padding-right: 15px; }
+    .gdesc-inner { font-size: 0.75rem; }
+    body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+    body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+    body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}</style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#step-4-data-lakehouse-hive-iceberg-table-format" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../index.html" title="DENG-259: Building Solutions with Cloudera Data Services" class="md-header__button md-logo" aria-label="DENG-259: Building Solutions with Cloudera Data Services" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-cloudera-white.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DENG-259: Building Solutions with Cloudera Data Services
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              04-04 Datalakehouse Hive and Iceberg
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="pink" data-md-color-accent="pink"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../index.html" title="DENG-259: Building Solutions with Cloudera Data Services" class="md-nav__button md-logo" aria-label="DENG-259: Building Solutions with Cloudera Data Services" data-md-component="logo">
+      
+  <img src="../../assets/images/logo-cloudera-white.svg" alt="logo">
+
+    </a>
+    DENG-259: Building Solutions with Cloudera Data Services
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Course Overview
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Table of Contents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    01 Get Aboard
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            01 Get Aboard
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-01 Get Aboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    01-02 Getting Aboard
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    02 Using Cloudera Data Flow
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            02 Using Cloudera Data Flow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-01 Using Cloudera Data Flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-02 Accessing Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-03 Define Workload Password
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-04 Verify permissions in Apache Ranger
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-05 Create a Flow using Flow Designer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-06/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-06 Testing the flow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-07/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-07 Moving the flow to the flow catalog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-08/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-08 Migrating Existing Data Flows to CDF-PC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-09/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-09 Managing KeyTabs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-10/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    02-10 Working on SQL Steam Builder Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    03 Using Cloudera Data Engineering - Airflow
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            03 Using Cloudera Data Engineering - Airflow
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-01 Using Cloudera Data Engineering - Airflow
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-02 Accessing Environment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-03 Building Your First CDE Airflow DAG
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-04/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-04 Beyond Airflow for Spark Jobs
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    03-05 More Airflow DAG Features
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    04 Using Cloudera Data Warehouse
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            04 Using Cloudera Data Warehouse
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-01 Using Cloudera Data Warehouse
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-02 Introdction and Access
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-03/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-03 CDW raw layer
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    04-04 Datalakehouse Hive and Iceberg
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="index.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-04 Datalakehouse Hive and Iceberg
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-curated-layer-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Curated layer creation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-migrate-hive-to-iceberg-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Migrate Hive to Iceberg Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Migrate Hive to Iceberg Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-option-1-utilize-the-table-migration-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.1 (Option 1): Utilize the table Migration feature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-option-2-use-create-table-as-select-ctas" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 (Option 2): Use Create Table as Select (CTAS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-create-iceberg-table-partitioned-parquet-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Create Iceberg Table (Partitioned, Parquet File Format)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-05/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-05 Performance Optimization & Lakehouse Maintenance
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-06/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    04-06 Data Visualization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    05 Using Cloudera AI
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            05 Using Cloudera AI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-01 Using Cloudera AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    05-02 MLOps in Cloudera AI
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    06 Integrating Cloudera Data Services
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            06 Integrating Cloudera Data Services
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06-01 Use Case: Stock Data Analysis Using Cloudera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-02/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    06-02 End-to-End Stock Data Processing with Cloudera
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    07 Course Summary
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            07 Course Summary
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-01/index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    07-01 Course Summary
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-curated-layer-creation" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.1 Curated layer creation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-migrate-hive-to-iceberg-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2 Migrate Hive to Iceberg Table
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Migrate Hive to Iceberg Table">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-option-1-utilize-the-table-migration-feature" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.1 (Option 1): Utilize the table Migration feature
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-option-2-use-create-table-as-select-ctas" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.2.2 (Option 2): Use Create Table as Select (CTAS)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-create-iceberg-table-partitioned-parquet-file-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      4.3 Create Iceberg Table (Partitioned, Parquet File Format)
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="step-4-data-lakehouse-hive-iceberg-table-format">Step 4: Data Lakehouse - Hive &amp; Iceberg Table Format</h1>
+<p><a class="glightbox" href="images/newImage/Screenshot%202025-02-20%20at%2010.04.14%E2%80%AFAM.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="alt text" src="images/newImage/Screenshot%202025-02-20%20at%2010.04.14%E2%80%AFAM.png" /></a></p>
+<p>In this step we will take steps to make use of Hive and Iceberg Table
+formats to provide us with best of both world scenarios in our Data
+Lakehouse. We will </p>
+<p><strong>4.1</strong> Create a curated layer from RAW CSV Tables (Created in Step 3).
+Curated layer will be created in <code>&lt;user_id&gt;_airlines</code> - This will be our
+'Data Lakehouse'. Data Lakehouse will be a combination of 2 Table
+Formats (Hive &amp; Iceberg).</p>
+<p><strong>4.2</strong> Migrate over time from Hive to Iceberg Table format and hence
+have the choice to not have to migrate everything at once.</p>
+<p>4.2.1 Utilize the table Migration feature.</p>
+<p>4.2.2 Use Create Table as Select (CTAS).</p>
+<h2 id="41-curated-layer-creation">4.1 Curated layer creation</h2>
+<ul>
+<li>
+<p>Make sure that you are using the HUE of <code>vw-hive</code>. Else, click on
+    <code>HUE</code> and go to the HUE browser.
+    <a class="glightbox" href="images/newImage/Screenshot%202025-02-06%20at%203.06.26%E2%80%AFPM.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="alt text" src="images/newImage/Screenshot%202025-02-06%20at%203.06.26%E2%80%AFPM.png" /></a></p>
+</li>
+<li>
+<p>Create <code>planes</code> table in <code>Hive</code> table format and stored in <code>parquet</code>
+    file format.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span><span class="p">;</span>
+
+<span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">tailnum</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="n">owner_type</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="n">manufacturer</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="n">issue_date</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span>
+<span class="w">  </span><span class="n">model</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="n">aircraft_type</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w">  </span><span class="n">engine_type</span><span class="w"> </span><span class="n">STRING</span><span class="p">,</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="nb">INT</span>
+<span class="p">)</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PARQUET</span>
+<span class="n">TBLPROPERTIES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;external.table.purge&#39;</span><span class="o">=</span><span class="s1">&#39;true&#39;</span><span class="p">);</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/41-2.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 2" src="images/step4/41-2.png" /></a></p>
+<ul>
+<li>Load <code>planes</code> table with data from the Raw layer table <code>planes_csv</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines_raw</span><span class="p">.</span><span class="n">planes_csv</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/41-3.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 3" src="images/step4/41-3.png" /></a></p>
+<ul>
+<li>Switch to <code>&lt;user_id&gt;_airlines</code> database by clicking the <code>&lt;</code> option
+    to the left of <code>default</code> database. Click on <code>&lt;user_id&gt;_airlines</code>
+    database. You should see the <code>planes</code> table.</li>
+</ul>
+<p><a class="glightbox" href="images/step4/41-4.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 4" src="images/step4/41-4.png" /></a></p>
+<p><a class="glightbox" href="images/step4/41-5.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 5" src="images/step4/41-5.png" /></a></p>
+<p><a class="glightbox" href="images/step4/41-6.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 6" src="images/step4/41-6.png" /></a>
+-   Run the SQL to see if the <code>planes</code> table was loaded correctly.
+    Since, <code>parquet</code> uses highly efficient column-wise compression which
+    occupies much disk space than CSV file and hence makes it faster to
+    scan data in the <code>parquet</code> file.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span><span class="p">;</span>
+</code></pre></div>
+<p>Scroll down to see more values for the data.</p>
+<p><a class="glightbox" href="images/step4/41-7.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 7" src="images/step4/41-7.png" /></a></p>
+<p>Scroll down to see more values. <a class="glightbox" href="images/step4/41-8.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 8" src="images/step4/41-8.png" /></a></p>
+<ul>
+<li>Execute the following command.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">FORMATTED</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/41-9.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 9" src="images/step4/41-9.png" /></a></p>
+<p>In the output look for the following.</p>
+<p>(a) Location:
+<code>s3a://…​/warehouse/tablespace/external/hive/wuser00_airlines.db/planes</code></p>
+<p>(b) Table Type: <code>EXTERNAL_TABLE</code></p>
+<p>(c) SerDe Library:
+<code>org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe</code></p>
+<p><a class="glightbox" href="images/step4/41-10.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 10" src="images/step4/41-10.png" /></a></p>
+<ul>
+<li>Create <code>airlines</code> table in <code>Hive</code> table format and <code>orc</code> file
+    format. This table should also be fully <code>ACID</code> capable. We will use
+    <code>Create Table As Select (CTAS)</code>. Since, <code>airlines</code> table can change
+    we need the ability to <code>Insert/Update/Delete</code> records.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_orc</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_orc</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ORC</span>
+<span class="k">AS</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines_raw</span><span class="p">.</span><span class="n">airlines_csv</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/41-11.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 11" src="images/step4/41-11.png" /></a></p>
+<ul>
+<li>Run the following query to check data in the <code>airlines_orc</code> table
+    and it should return only 1 row for code 'UA'.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_orc</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;UA&quot;</span><span class="p">,</span><span class="ss">&quot;XX&quot;</span><span class="p">,</span><span class="ss">&quot;PAW&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/41-12.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 12" src="images/step4/41-12.png" /></a></p>
+<ul>
+<li>We shall now add a new record to the <code>airlines_orc</code> table to see
+    some Hive ACID capabilities.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_orc</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="ss">&quot;PAW&quot;</span><span class="p">,</span><span class="ss">&quot;Paradise Air&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/41-13.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 13" src="images/step4/41-13.png" /></a></p>
+<ul>
+<li>Now, let's create a new table called <code>airlines_dim_updates</code> and
+    insert 2 new records for <code>United Airlines</code> with code <code>UA</code> and
+    <code>Get Out of My Airway!</code> with code <code>XX</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_dim_updates</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_dim_updates</span><span class="p">(</span><span class="n">code</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="n">string</span><span class="p">)</span><span class="w"> </span><span class="n">tblproperties</span><span class="p">(</span><span class="ss">&quot;external.table.purge&quot;</span><span class="o">=</span><span class="ss">&quot;true&quot;</span><span class="p">);</span>
+
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_dim_updates</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="ss">&quot;UA&quot;</span><span class="p">,</span><span class="ss">&quot;Adrenaline Airlines&quot;</span><span class="p">);</span>
+<span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_dim_updates</span><span class="w"> </span><span class="k">VALUES</span><span class="p">(</span><span class="ss">&quot;XX&quot;</span><span class="p">,</span><span class="ss">&quot;Get Out of My Airway!&quot;</span><span class="p">);</span>
+</code></pre></div>
+<ul>
+<li>
+<p>At this point the 2 tables contain data for the specific airlines
+    with code <code>UA, XX &amp; PAW</code> as follows.
+    <a class="glightbox" href="images/step4/41-13a.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 13a" src="images/step4/41-13a.png" /></a></p>
+</li>
+<li>
+<p>Let's update an existing record to change the description of
+    <code>United Airlines</code> to <code>Adrenaline Airlines</code> to see more of the <code>ACID</code>
+    capabilities provided by Hive ACID. Run the following SQL.</p>
+</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">-- Merge inserted records into Airlines_orc table</span>
+<span class="n">MERGE</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_orc</span><span class="w"> </span><span class="k">USING</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_dim_updates</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">s</span>
+<span class="w">  </span><span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">airlines_orc</span><span class="p">.</span><span class="n">code</span>
+<span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">UPDATE</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">description</span>
+<span class="w">  </span><span class="k">WHEN</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="n">MATCHED</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="k">INSERT</span><span class="w"> </span><span class="k">VALUES</span><span class="w"> </span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">code</span><span class="p">,</span><span class="n">s</span><span class="p">.</span><span class="n">description</span><span class="p">);</span>
+
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airlines_orc</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;UA&quot;</span><span class="p">,</span><span class="ss">&quot;XX&quot;</span><span class="p">,</span><span class="ss">&quot;PAW&quot;</span><span class="p">);</span>
+</code></pre></div>
+<p>The final <code>SELECT</code> statement should return the following result - codes
+<code>XX</code> and <code>PAW</code> were inserted rows, and code <code>UA</code> which had its
+description value changed from <code>United Air Lines Inc.</code> to
+<code>Adrenaline Airlines</code>. <a class="glightbox" href="images/step4/41-14.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="41 14" src="images/step4/41-14.png" /></a></p>
+<h2 id="42-migrate-hive-to-iceberg-table">4.2 Migrate Hive to Iceberg Table</h2>
+<p>If you already have created a Data Warehouse using the Hive Table Format
+but would like to take advantage of the features offered in the Iceberg
+Table Format, you have 2 options. We will see both the options as a part
+of this step.</p>
+<p>Note that the <code>planes</code> table that we created earlier has
+<code>SerDe Library: org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe</code>.
+Note the \'ParquetHiveSerDe\' part. You can check the same by running
+the command below.</p>
+<div class="highlight"><pre><span></span><code><span class="k">DESCRIBE</span><span class="w"> </span><span class="n">FORMATTED</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/421-0.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="421 0" src="images/step4/421-0.png" /></a></p>
+<h3 id="421-option-1-utilize-the-table-migration-feature">4.2.1 (Option 1): Utilize the table Migration feature</h3>
+<ul>
+<li>Run the following SQL and note what happens next.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">ALTER</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span>
+<span class="k">SET</span><span class="w"> </span><span class="n">TBLPROPERTIES</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;storage_handler&#39;</span><span class="o">=</span><span class="s1">&#39;org.apache.iceberg.mr.hive.HiveIcebergStorageHandler&#39;</span><span class="p">);</span>
+
+<span class="k">DESCRIBE</span><span class="w"> </span><span class="n">FORMATTED</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/421-1.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="421 1" src="images/step4/421-1.png" /></a></p>
+<p>The following happened.</p>
+<p><strong>(a).</strong> This migration to Iceberg happened in-place &amp; there was no
+re-writing of data that occurred as part of this process. It retained
+the File Format of <code>parquet</code> for the Iceberg table as well. There was a
+Metadata file that was created, which you can see when you run the
+<code>DESCRIBE FORMATTED</code>.</p>
+<p><strong>(b).</strong> In the output look for the following fields - look for the
+following (see image with highlighted fields) key values: <code>Table Type</code>,
+<code>Location</code> (location of where table data is stored), <code>SerDe Library</code>,
+and in Table Parameters look for properties <code>MIGRATED_TO_ICEBERG</code>,
+<code>storage_handler</code>, <code>metadata_location</code>, and <code>table_type</code>.</p>
+<p><code>Location</code> - Data is stored in cloud storage and in this case AWS S3 in
+the same location as the Hive Table Format.</p>
+<p><code>Table Type</code>: Indicates that it is an <code>EXTERNAL TABLE</code>.</p>
+<p><code>MIGRATED_TO_ICEBERG</code>: Indicates that the table has migrated to
+<code>ICEBERG</code>.</p>
+<p><code>table_type</code>: Indicates <code>ICEBERG</code> table format.</p>
+<p><code>metadata_location</code>: Indicates the location of <code>metadata</code> which is the
+path to cloud storage.</p>
+<p><code>storage_handler</code>:
+<code>org.apache.iceberg.mr.hive.HiveIcebergStorageHandler</code>.</p>
+<p><code>SerDe Library</code>: <code>org.apache.iceberg.mr.hive.HiveIcebergSerDe</code>.</p>
+<p><a class="glightbox" href="images/step4/421-2.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="421 2" src="images/step4/421-2.png" /></a></p>
+<h3 id="422-option-2-use-create-table-as-select-ctas">4.2.2 (Option 2): Use Create Table as Select (CTAS)</h3>
+<ul>
+<li>Run the following SQL to create <code>airports</code> table using CTAS. Notice
+    the syntax to create an Iceberg Table within Hive is
+    <code>Stored by Iceberg</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airports</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airports</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ICEBERG</span><span class="w"> </span><span class="k">AS</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines_raw</span><span class="p">.</span><span class="n">airports_csv</span><span class="p">;</span>
+
+<span class="k">DESCRIBE</span><span class="w"> </span><span class="n">FORMATTED</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">airports</span><span class="p">;</span>
+</code></pre></div>
+<p>Look for: <code>Table Type</code>, <code>Location</code> (location of where table data is
+stored), <code>SerDe Library</code>, and in Table Parameters look for properties
+<code>storage_handler</code>, <code>metadata_location</code>, and <code>table_type</code>.</p>
+<p><a class="glightbox" href="images/step4/422-3.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="422 3" src="images/step4/422-3.png" /></a></p>
+<p><a class="glightbox" href="images/step4/422-4.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="422 4" src="images/step4/422-4.png" /></a></p>
+<h2 id="43-create-iceberg-table-partitioned-parquet-file-format">4.3 Create Iceberg Table (Partitioned, Parquet File Format)</h2>
+<ul>
+<li>In this step we will create a partitioned table, in <code>Iceberg</code>
+    <strong>Table Format</strong>, stored in <code>Parquet</code> <strong>File Format</strong>. Other than
+    that we could specify other file formats that are supported for
+    Iceberg which are: <code>ORC and Avro</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">drop</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">exists</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">flights</span><span class="p">;</span>
+<span class="k">CREATE</span><span class="w"> </span><span class="k">EXTERNAL</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">flights</span><span class="w"> </span><span class="p">(</span>
+<span class="w"> </span><span class="k">month</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">dayofmonth</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span>
+<span class="w"> </span><span class="n">dayofweek</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">deptime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">crsdeptime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">arrtime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span>
+<span class="w"> </span><span class="n">crsarrtime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">uniquecarrier</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">flightnum</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">tailnum</span><span class="w"> </span><span class="n">string</span><span class="p">,</span>
+<span class="w"> </span><span class="n">actualelapsedtime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">crselapsedtime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">airtime</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">arrdelay</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span>
+<span class="w"> </span><span class="n">depdelay</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">dest</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">distance</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">taxiin</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span>
+<span class="w"> </span><span class="n">taxiout</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">cancelled</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">cancellationcode</span><span class="w"> </span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">diverted</span><span class="w"> </span><span class="n">string</span><span class="p">,</span>
+<span class="w"> </span><span class="n">carrierdelay</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">weatherdelay</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">nasdelay</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span><span class="w"> </span><span class="n">securitydelay</span><span class="w"> </span><span class="nb">int</span><span class="p">,</span>
+<span class="w"> </span><span class="n">lateaircraftdelay</span><span class="w"> </span><span class="nb">int</span>
+<span class="p">)</span>
+<span class="n">PARTITIONED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="k">year</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ICEBERG</span>
+<span class="n">STORED</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PARQUET</span>
+<span class="n">tblproperties</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;format-version&#39;</span><span class="o">=</span><span class="s1">&#39;2&#39;</span><span class="p">);</span>
+
+<span class="k">SHOW</span><span class="w"> </span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">flights</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/43-1.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="43 1" src="images/step4/43-1.png" /></a></p>
+<p>The <code>SHOW CREATE TABLE</code> command is the unformatted version of
+<code>DESCRIBE FORMATTED</code> command. Pay attention to the
+<code>PARTITIONED BY SPEC</code>, where we have partitioned the <code>flights</code> table
+using the <code>year</code> column.</p>
+<p><a class="glightbox" href="images/step4/43-2.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="43 2" src="images/step4/43-2.png" /></a></p>
+<p><a class="glightbox" href="images/step4/43-3.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="43 3" src="images/step4/43-3.png" /></a></p>
+<ul>
+<li>We will insert data into this table and it will write data together
+    within the same partition (i.e. all 2006 data is written to the same
+    location, all 2005 data is written to the same location, etc.).
+    <code>This command will take some time to run</code>.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">INSERT</span><span class="w"> </span><span class="k">INTO</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">flights</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines_raw</span><span class="p">.</span><span class="n">flights_csv</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">2006</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/43-4.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="43 4" src="images/step4/43-4.png" /></a></p>
+<ul>
+<li>Run the following SQL and notice that each of the years have a range
+    of data within a few million flights (each record in the flights
+    table counts as a flight).</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">year</span><span class="p">,</span><span class="w"> </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">flights</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">year</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">year</span><span class="w"> </span><span class="k">desc</span><span class="p">;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/43-5.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="43 5" src="images/step4/43-5.png" /></a></p>
+<ul>
+<li>Now, make sure that the following <strong>5 tables</strong> are created up until
+    this point as shown in the screenshot below.</li>
+</ul>
+<p><a class="glightbox" href="images/step4/43-6.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="43 6" src="images/step4/43-6.png" /></a></p>
+<h1 id="recap">Recap</h1>
+<p>Below is the summary of what we have done so far in the form of a
+screenshot.</p>
+<p><a class="glightbox" href="images/step4/updatedERD.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="updatedERD" src="images/step4/updatedERD.png" /></a></p>
+<p><strong>(1).</strong> Created a Raw Layer by defining Tables that point to CSV data
+files in an S3 bucket. We were then immediately able to query and run
+analytics against that data.</p>
+<p><strong>(2).</strong> Created a Curated Layer to be the basis of our Data Lakehouse.</p>
+<ul>
+<li>
+<p><strong>(2.1).</strong> Created the <code>planes</code> table in Hive table format stored in
+    <code>Parquet</code> to improve performance of querying this from the Raw CSV
+    data due to how the data is stored. Migrated, <code>in-place</code> - no data
+    rewrite, the planes table from Hive table format to Iceberg table
+    format using the Migration utility (Alter Table statement).</p>
+</li>
+<li>
+<p><strong>(2.2).</strong> Created the <code>airlines_orc</code> table in Hive table format
+    stored in <code>ORC</code> to improve performance of querying this from the Raw
+    CSV data due to how the data is stored. Took advantage of the Hive
+    <code>ACID</code> capabilities to Insert, Update, Delete, and Merge data into
+    this table. Here we created a staging table to write new incoming
+    data to be used to update the <code>airlines_orc</code> table with (Merge
+    command).\</p>
+</li>
+<li>
+<p><strong>(2.3).</strong> Created the <code>airports</code> table in Iceberg Table Format
+    using a <code>CTAS</code> statement querying the Raw CSV data to take advantage
+    of the features of Iceberg.</p>
+</li>
+<li>
+<p><strong>(2.4).</strong> Created the flights table in Iceberg Table Format and
+    partitioned the table by the year column. Inserted data into the
+    table up to year 2006.</p>
+</li>
+</ul>
+<p>As a final step here, let's run the same analytic query we ran against
+the Raw layer now in our Data Lakehouse DW, to see what happens with
+performance. From the cloudera console click on - <code>impala-vw</code>.</p>
+<p><a class="glightbox" href="images/step4/recap-1a.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="recap 1a" src="images/step4/recap-1a.png" /></a></p>
+<p><a class="glightbox" href="images/step4/recap-4.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="recap 4" src="images/step4/recap-4.png" /></a></p>
+<ul>
+<li>Now run the following query again.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">model</span><span class="p">,</span>
+<span class="w">       </span><span class="n">engine_type</span>
+<span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">planes</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">planes</span><span class="p">.</span><span class="n">tailnum</span><span class="w"> </span><span class="k">IN</span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">tailnum</span>
+<span class="w">     </span><span class="k">FROM</span>
+<span class="w">       </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">tailnum</span><span class="p">,</span>
+<span class="w">               </span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">depdelay</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avg_delay</span><span class="p">,</span>
+<span class="w">               </span><span class="k">max</span><span class="p">(</span><span class="n">depdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">taxiout</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">cancelled</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">weatherdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">max</span><span class="p">(</span><span class="n">weatherdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">nasdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">max</span><span class="p">(</span><span class="n">nasdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">securitydelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">max</span><span class="p">(</span><span class="n">securitydelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">lateaircraftdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">max</span><span class="p">(</span><span class="n">lateaircraftdelay</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">airtime</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">actualelapsedtime</span><span class="p">),</span>
+<span class="w">               </span><span class="k">avg</span><span class="p">(</span><span class="n">distance</span><span class="p">)</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w"> </span><span class="err">${</span><span class="n">user_id</span><span class="err">}</span><span class="n">_airlines</span><span class="p">.</span><span class="n">flights</span>
+<span class="w">        </span><span class="k">WHERE</span><span class="w"> </span><span class="n">tailnum</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="s1">&#39;N194JB&#39;</span><span class="p">,</span>
+<span class="w">                          </span><span class="s1">&#39;N906S&#39;</span><span class="p">,</span>
+<span class="w">                          </span><span class="s1">&#39;N575ML&#39;</span><span class="p">,</span>
+<span class="w">                          </span><span class="s1">&#39;N852NW&#39;</span><span class="p">,</span>
+<span class="w">                          </span><span class="s1">&#39;N000AA&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">tailnum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">delays</span><span class="p">);</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/step4/recap-5.png" data-type="image" data-width="80%" data-height="auto" data-desc-position="bottom"><img alt="recap 5" src="images/step4/recap-5.png" /></a>
+The Data Lakehouse DW query performs significantly better than the same
+query running against the CSV data.</p>
+<p><strong><code>Note: Please note that depending upon how the warehouse is comfigured (Auto suspend being set or unset), the query may take more time as the pods take time to start up</code></strong></p>
+<hr />
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Cloudera Inc. 2025
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.copy"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  <script id="init-glightbox">const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});
+document$.subscribe(() => { lightbox.reload() });
+</script></body>
+</html>

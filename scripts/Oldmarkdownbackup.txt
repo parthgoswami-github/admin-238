@@ -1,0 +1,97 @@
+site_name: 'Running Cloudera Public Cloud'
+site_author: Cloudera Education
+copyright: Cloudera Inc. 2023
+theme:
+    name: material
+    logo: assets/images/logo-cloudera-white.svg
+    palette:
+    - scheme: default
+      primary: #FFFFFF
+      accent: #121212
+      toggle:
+        name: Switch to light mode
+        icon: material/weather-sunny
+    - scheme: slate
+      primary: pink
+      accent: pink
+      toggle:
+        name: Switch to dark mode
+        icon: material/weather-night
+    features:
+    - content.code.annotate
+    - content.code.copy
+
+docs_dir: '../student'
+site_dir: '../build/student/'
+extra_css:
+  - stylesheets/extra.css
+use_directory_urls: false
+
+
+nav:
+    - Home: 'guide_pub/README.md'
+    - 'Day 01':
+      - 'Day 01-01 Accessing CDP': 'guide_pub/01-01/README.md'
+      - 'Day 01-02 Installation Overview': 'guide_pub/01-02/README.md'
+      - 'Day 01-03 Cloudera Data Platform': 'guide_pub/01-03/README.md'
+      - 'Day 01-04 CDP Architecture': 'guide_pub/01-04/README.md'
+      - 'Day 01-05 Control Plane Overview': 'guide_pub/01-05/README.md'
+      - 'Day 01-06 CDP CLI': 'guide_pub/01-06/README.md'
+      - 'EX Day 01-06 CDP CLI': 'guide_pub/01-06_Exercise/README.md'
+    - 'Day 02':
+      - 'Day 02-01 Managing CDP Access': 'guide_pub/02-01/README.md'
+      - 'Day 02-02 Data Hubs Overview': 'guide_pub/02-02/README.md'
+      - 'Day 02-03 Managing Data Hubs': 'guide_pub/02-03/README.md'
+      - 'Day 02-04 Troubleshoot issue for Data Hubs, Dala lake': 'guide_pub/02-04/README.md'
+      - 'EX Day 02-03 Managing Data Hubs': 'guide_pub/02-03_Exercise/README.md'
+      - 'EX Day 02-3.1 Data Hub Auto scaling': 'guide_pub/02-3.1_Exercise/README.md'
+      - 'EX Day 02-3.2 Adding Services - Data Hub': 'guide_pub/02-3.2_Exercise/README.md'
+      - 'EX Day 02-3.3 Custom Template, Recipe and Variables': 'guide_pub/02-3.3_Exercise/README.md'
+    - 'Day 03':      
+      - 'Day 03-01 Data Services Overview': 'guide_pub/03-01/README.md'
+      - 'Day 03-02 DataFlow': 'guide_pub/03-02/README.md'
+      - 'EX Day 03-02 DataFlow': 'guide_pub/03-02_Exercise/README.md'
+      - 'Day 03-03 Data Engineering': 'guide_pub/03-03/README.md'
+      - 'EX Day 03-03 Data Engineering': 'guide_pub/03-03_Exercise/README.md'
+      - 'Day 03-04 Data Warehouse': 'guide_pub/03-04/README.md'
+      - 'EX Day 03-04 Data Warehouse': 'guide_pub/03-04_Exercise/README.md'
+      - 'Day 03-05 Operational Database': 'guide_pub/03-05/README.md'
+      - 'Day 03-06 Machine Learning': 'guide_pub/03-06/README.md'
+      - 'EX Day 03-06 Machine Learning': 'guide_pub/03-06_Exercise/README.md'
+      - 'EX Day 03-6.1 Machine Learning - Streamlit on CML': 'guide_pub/03-6.1/README.md'
+    - 'Day 04':  
+      - 'Day 04-01 Monitoring and Management': 'guide_pub/04-01/README.md'
+      - 'Day 04-1.1 Cloudera Observability': 'guide_pub/04-1.1_obs/README.md'
+      - 'EX Day 04-1.1 Cloudera Observability': 'guide_pub/04-1.1_Exercise/README.md'
+      - 'Day 04-02 Data Management': 'guide_pub/04-02/README.md'
+      - 'EX Day 04-2.1 Mask Columns in Hive with Atlas and Ranger': 'guide_pub/04-2.1_Exercise/README.md'
+      - 'EX Day 04-2.2 Creating Ranger Policy': 'guide_pub/04-2.2_Exercise/README.md'
+      - 'EX Day 04-2.3 Searching for Entities in Atlas': 'guide_pub/04-2.3_Exercise/README.md'
+      - 'Day 04-04 Migration to CDP Public Cloud': 'guide_pub/04-04/README.md'
+
+
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.keys
+  - admonition
+  - pymdownx.details
+  - toc:
+      toc_depth: 2
+  - sane_lists: {}
+
+
+plugins:
+  - search
+  - markdownextradata: {}
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      width: 80%
+      height: auto
+      zoomable: true
+      draggable: true
+

@@ -1,0 +1,21 @@
+Automated Deployments
+"CML provides automated deployments, allowing us to complete the last mile of ML deployment seamlessly."
+"Once a model is trained and validated, it can be deployed into a production environment with minimal manual effort."
+"This automation reduces errors, speeds up time-to-market, and ensures consistency across deployments."
+Addressing Multiple Deployment Patterns
+"In an enterprise setting, we don’t just deploy models in one way. CML supports multiple deployment patterns, such as:"
+Batch Processing: "Useful for large-scale offline inference, where models process large datasets at scheduled intervals."
+Function as a Service (FaaS): "Allows models to be deployed as serverless functions that respond to API requests."
+Streaming: "Models can be integrated with real-time data streams for continuous inference, which is essential for applications like fraud detection."
+Edge Deployment: "For IoT and mobile applications, models can be deployed closer to the data source, reducing latency and improving performance."
+Enterprise Capabilities
+"Enterprise AI workloads require robust capabilities, and CML offers:"
+High Availability: "Ensures that ML services remain operational even in case of failures."
+Autoscaling: "Automatically scales model replicas based on demand, ensuring optimal resource usage."
+Security by Default: "CML integrates with Cloudera SDX, ensuring governance, compliance, and role-based access controls."
+Architecture Overview (Diagram Explanation)
+"On the left, you see how models are deployed as multiple replicas to ensure availability and scalability."
+"The Cloudera AI Runtime (CML) enables execution environments for Python, R, and Spark."
+"Underneath, CDP provides the infrastructure, running on Kubernetes (EKS or AKS) and leveraging Cloudera SDX for security and governance."
+"Finally, data is stored in Object Stores or HDFS (S3 or ABFS), ensuring scalable and reliable storage for models and datasets."
+
