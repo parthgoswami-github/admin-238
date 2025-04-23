@@ -1,7 +1,0 @@
-"In this workshop, we’ll cover several key concepts and tools. You’ll learn how to:
-Access raw data stored in cloud storage like AWS S3.
-Build a data lakehouse using Hive and Iceberg table formats.
-Optimize performance and maintain tables using Impala.
-Create dashboards and visualizations using Cloudera Data Visualization.
-The tools we’ll use include AWS S3, Hive, Iceberg, Impala, and Cloudera Data Visualization. By the end of this session, you’ll have hands-on experience with these tools and understand how they fit into a modern data workflow."
-

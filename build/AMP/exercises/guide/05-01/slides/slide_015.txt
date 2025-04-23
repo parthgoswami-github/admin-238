@@ -1,2 +1,0 @@
-Applied ML Prototypes (AMPs) are end-to-end ML prototypes to help kickstart specific customer use-cases while taking advantage of powerful abstractions provided by CML. 
-

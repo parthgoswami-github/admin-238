@@ -1,9 +1,0 @@
-"In Step 6, we’ll shift our focus to data visualization. The goal here is to create a Logistics Dashboard that provides insights into flight delays and cancellations.
-Here’s what we’ll do:
-Data Modeling:
-Prepare the data for visualization by defining relationships and metrics. This step ensures that the data is structured in a way that makes sense for analysis.
-Create Visualizations:
-Use Cloudera Data Visualization to build charts, graphs, and dashboards. We’ll focus on flight data, analyzing delays and cancellations to identify trends and insights.
-Why is this important?
-Visualization turns complex data into actionable insights. A well-designed dashboard makes it easy for stakeholders to understand the data and make informed decisions."
-

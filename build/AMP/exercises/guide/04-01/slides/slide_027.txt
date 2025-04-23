@@ -1,9 +1,0 @@
-"Let’s explore how **read and write operations** work in Apache Iceberg. Understanding these operations is key to leveraging Iceberg’s capabilities effectively.
-First, let’s talk about the **Reader**. In Iceberg, a reader always reads data from the **most recent snapshot**. This ensures that queries always return the latest state of the data. Because Iceberg maintains a clear and consistent view of the table through snapshots, readers can efficiently access the data they need without worrying about inconsistencies.
-Now, let’s look at the **Writer**. When a writer performs an operation—such as an insert, update, or delete—it creates a **new snapshot**. This new snapshot captures the changes made by the write operation. However, it’s important to note that **uncommitted snapshots are not visible to queries**. This means that until the write operation is committed, the changes are not accessible to readers. This isolation ensures data consistency and prevents partial or incomplete data from being queried.
-To summarize:
-- **Reader**: Reads data from the most recent snapshot, ensuring access to the latest state of the table.
-- **Writer**: Creates a new snapshot with each write operation, but uncommitted snapshots are not visible to queries.
-This separation of read and write operations, combined with the use of snapshots, allows Iceberg to provide strong consistency and reliability. It ensures that readers always see a complete and consistent view of the data, while writers can make changes without disrupting ongoing queries.
-NEW
-

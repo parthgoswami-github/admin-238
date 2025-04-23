@@ -1,4 +1,0 @@
-Kaggle's 2019 Machine Learning and Data Science Survey.  
-
-https://www.kaggle.com/fatihbilgin/2019-data-science-trends
-

@@ -1,8 +1,0 @@
-"In Step 3, we’ll start by working with raw data stored in AWS S3. The goal here is to create external tables that allow us to query this data directly from cloud storage without needing to load it into the warehouse.
-Here’s what we’ll do:
-Access the raw CSV files stored in AWS S3.
-Create external tables in CDW that point to these files. External tables are like pointers to the data in S3, so we don’t need to move or copy the data.
-Use HUE, a web-based SQL editor, to run queries on these external tables and explore the raw data.
-Why is this important?
-External tables are efficient for large datasets because they allow you to query data directly from cloud storage. This is especially useful when working with raw data that hasn’t been cleaned or transformed yet."
-
